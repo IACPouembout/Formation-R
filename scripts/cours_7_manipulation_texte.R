@@ -1,110 +1,107 @@
-#######################Cours 6 : Manipulation de données ##############################################################################
-if(!require("devtools"))install.packages("devtools")
-if(!require("pacman"))install.packages("pacman")
-if(!require("Caledocensus"))devtools::install_github("https://github.com/IACPouembout/Caledocensus",force = TRUE,dependencies = FALSE)
+#######################Cours 7 : manipuler du texte##############################################################################
+
 
 pacman::p_load("tidyverse",
-               "here","questionr")
-
-library(Caledocensus)
-rp19_ind <- Caledocensus::rp19_ind
+               "snakecase")
 
 
-#######################################################Les verbes de dplyr######################################################
-
-####################################################### Slice #######################################################
-
-#sélectionner une ligne
-slice(rp19_ind,30)
-
-#sélectionner un ensemble de lignes
-slice(rp19_ind,1:30)
-
-#sélectionner les dernières lignes
-
-slice_tail(rp19_ind,n=30)
-
-#sélectionner les premiere lignes
-
-slice_head(rp19_ind, prop = 0.2)
-
-#sélectionner à partir de valeurs maximum et minimum
-
-slice_max(rp19_ind,AGER)
-
-slice_min(rp19_ind,AGER)
-
-####################################################### Filter #######################################################
-
-#filtrer des donnees a partir d'une conditions
-filter(rp19_ind,GENRE=="Homme")
-
-#ou de plusieurs
-filter(rp19_ind,GENRE=="Homme" & AGER >95)
-
-#ou d'un calcul
-filter(rp19_ind,AGER == median(AGER))
+#######################################################Manipuler du texte avec stringr#####################################################
+d <- tibble(
+  nom = c("mr Félicien Machin", "mme Raymonde Bidule", "m. Martial Truc", "mme Huguette Chose"),
+  adresse = c("3 rue des Fleurs", "47 ave de la Libération", "12 rue du 17 octobre 1961", "221 avenue de la Libération"),
+  ville = c("Nouméa", "Marseille", "Vénissieux", "Marseille")
+)
 
 
-####################################################### Select et rename #######################################################
-
-#select permet de sélectionner directement les variables qui nous intéressent
-select(rp19_ind,COUPLE,GENRE)
-
-#ou de sélectionner toutes les variables sauf certaines, avec -, ou -c()
-select(rp19_ind,-COUPLE,-GENRE)
-
-select(rp19_ind,-c(COUPLE,-GENRE))
-
-#il y a des verbes pour sélectionner des variables selon le debut ou la fin de leur nom
-select(rp19_ind, starts_with("CS"))
-select(rp19_ind, ends_with("RA"))
-
-#les : pour sélectionner les variables de_à
-select(rp19_ind, ILN:NAT)
 
 
-#rename pour renommer les variables, rename("nouveau nom"="ancien nom")
-rename(rp19_ind,  "Age atteint"=AGEA,"Age révolu"=AGER)
+
+####################################################### Concaténation #######################################################
+
+paste(d$adresse, d$ville)
+
+paste(d$adresse, d$ville, sep = " - ")
+
+paste0(d$adresse, d$ville)
+
+paste(d$ville, collapse = ", ")
+####################################################### Convertir en majuscule/minuscule #######################################################
+
+str_to_lower(d$nom)
+
+str_to_upper(d$nom)
+
+str_to_title(d$nom)
+
+str_to_sentence(d$nom)
+
+to_snake_case(d$nom)
+
+to_lower_upper_case(d$nom)
+
+to_lower_camel_case(d$nom)
+
+to_screaming_snake_case(d$nom)
+####################################################### Découper des chaines #######################################################
+
+str_split("un-deux-trois", "-")
+
+str_split(d$nom, " ")
+
+str_split(d$nom, " ", simplify = TRUE)
+
+d%>%
+  separate(nom,c("genre", "prenom", "nom"),sep=" ")
 
 
-####################################################### Arrange #######################################################
-
-#Trier les variables, par ordre croissant par défaut
-arrange(rp19_ind,AGEA)
-
-#Selon plusieurs variables
-arrange(rp19_ind,AGEA,GENRE)
-
-#ou par ordre décroissant
-arrange(rp19_ind,desc(AGEA),GENRE)
+#######################################################Extraire des sous chaines par position #######################################################
 
 
-####################################################### Mutate #######################################################
-
-# Mutate() pour créer de nouvelles variables
-rp19_ind <- mutate(rp19_ind,ANAIS=2019-AGEA)
-select(rp19_ind,AGEA,ANAIS)
-
-# On peut utiliser le recodage conditionnel vu lors du cours 4
-rp19_ind <- mutate(rp19_ind,ANAIS=2019-AGEA,
-                   ANAIS_cl=case_when(ANAIS %in% c(2000:2019)~"Né(e) après 1999",
-                                      ANAIS < 2000 & ANAIS > 1979 ~"Né(e) entre 1980 et 1999",
-                                      TRUE~"Né(e) avant 1980"
-                                      ) )
+str_sub(d$ville, 1, 3)
 
 
-select(rp19_ind,ANAIS,ANAIS_cl)
+#######################################################Détecter des motifs #######################################################
+
+str_count(d$ville, "s")
+
+str_subset(d$adresse, "Libération")
+
+bananas <- c("banana", "Banana", "BANANA")
+str_detect(bananas, "banana")
+
+str_detect(bananas, regex("banana", ignore_case = TRUE))
+
+str_detect("\nX\n", regex(".X.", dotall = TRUE))
 
 
-####################################################### Enchainer les opérations avec % #######################################################
+####################################################### Extraire des motifs #######################################################
+x <- c("apple", "banana", "pear")
 
-# Les lignes de codes sont liées les unes aux autres tant que le % est utilisé
-rp19_ind%>%
-  filter(PROV=="Sud")%>%
-  select(ID,PROV,AGEA)%>%
-  arrange(desc(AGEA))
+str_extract(x, "an")
 
+str_extract(x, ".a.")
+
+dot <- "\\."
+
+writeLines(dot)
+
+str_extract(c("abc", "a.c", "bef"), "a\\.c")
+
+x <- "a\\b"
+writeLines(x)
+
+str_extract(x, "\\\\")
+
+
+str_extract(d$adresse, "^\\d+")
+str_extract_all(d$adresse, "\\d+")
+
+d %>% extract(adresse, "type_rue", "^\\d+ (.*?) ", remove = FALSE)
+
+parse_number(d$adresse)
+
+
+str_extract(d$adresse,"[:digit:]")
 
 
 ####################################################### Opérations groupées #######################################################
@@ -338,7 +335,7 @@ superheroes_stats <- read_delim(here("data","superheroes_stats.csv"))
 ####################################################Exercice 1################################################################
 
 ############Exo 1.1
-#Sélectionner la 1ere ligne de la table superheroes_stats .
+#Sélectionner la 1ere ligne du superheroes_stats .
 
 #Sélectionner les 5 premières lignes de la table superheroes_info.
 

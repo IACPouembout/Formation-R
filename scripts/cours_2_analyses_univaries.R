@@ -110,21 +110,20 @@ dotchart(sort(tab))
 
 
 ################################################################EXERCICES######################################################################
-#Travail sur l'enquête "Histoire de vie 2003"
-data("hdv2003")
+
 
 ####################################################Exercice 1################################################################
 
 
-#On souhaite étudier la répartition du temps passé devant la télévision par les enquêtés (variable heures.tv). 
+#On souhaite étudier la répartition de l'année d'installation parmi les enquêtés
 #Pour cela, affichez les principaux indicateurs de cette variable : valeur minimale, maximale, moyenne, médiane et écart-type. 
 #Représentez ensuite sa distribution par un histogramme en 10 classes.
 
 
-
 ####################################################Exercice 2################################################################
-#On s’intéresse maintenant à l’importance accordée par les enquêtés à leur travail (variable trav.imp). Faites un tri à plat des effectifs des modalités de cette variable avec la commande table.
+data <- rp19_log
+#On s’intéresse maintenant à la période d'achèvement de construction des logements. Faites un tri à plat des effectifs des modalités de cette variable avec la commande table.
 
-#Faites un tri à plat affichant à la fois les effectifs et les pourcentAGERs de chaque modalité. Y’a-t-il des valeurs manquantes ?
+#Faites un tri à plat affichant à la fois les effectifs et les pourcentages de chaque modalité. Y’a-t-il des valeurs manquantes ?
 
 #Représentez graphiquement les effectifs des modalités à l’aide d’un graphique en barres.

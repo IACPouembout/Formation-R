@@ -5,21 +5,21 @@ if(!require("pacman"))install.packages("pacman")
 pacman::p_load("tidyverse",
                "here","ggthemes","ggThemeAssist","hrbrthemes","questionr")
 
-if(!require("Caledocensus"))devtools::install_github("https://github.com/IACPouembout/Caledocensus",force = TRUE,dependencies = FALSE)
-library(Caledocensus)
+
 
 ######################################################Grammaire de ggplot##########################################################
 
-library(Caledocensus)
-rp <- pop_18plus_communes
+data("rp2018")
+rp <- filter(
+  rp2018,
+  departement %in% c("Oise", "Rhône", "Hauts-de-Seine", "Lozère", "Bouches-du-Rhône")
+)
 
 # avec ggplot() on definit la source de donnees
 # avec aes (aesthetics) on definit les variables x et y
 # avec les geom_ on choisit le type de graphique
 
-ggplot(rp,aes(y=Part_Oui_2020,x=Part_kanak))+
-  geom_point()
-
+ggplot(rp) + geom_point(aes(x = dipl_sup, y = cadres))
 
 
 # On peut rajouter divers parametres
@@ -27,7 +27,7 @@ ggplot(rp,aes(y=Part_Oui_2020,x=Part_kanak))+
 # color pour changer la couleur
 ggplot(rp) +
   geom_point(
-    aes(y=Part_Oui_2020,x=Part_kanak),
+    aes(x = dipl_sup, y = cadres),
     color = "darkgreen", size = 3, alpha = 0.3
   )
 
@@ -40,8 +40,7 @@ ggplot(rp) +
 
 ggplot(rp) +
   geom_point(
-    aes(y=Part_Oui_2020,x=Part_kanak, color = Province, size = Pop_18_plus_total)
-  )
+    aes(x = dipl_sup, y = cadres, size = pop_tot,color=departement))
 
 
 
@@ -55,133 +54,116 @@ ggsave(width = 13,height = 9,here("geom_point.png"))
 
 ggplot(rp) +
   geom_text(
-    aes(y=Part_Oui_2020,x=Part_kanak, label = Commune)
+    aes(x = dipl_sup, y = cadres, label = commune)
   )
-
 
 #Si on veut changer une couleur sans la mettre en relation avec une variable
 #il faut le faire à l'extérieur de aes()
 
 ggplot(rp) +
   geom_text(
-    aes(y=Part_Oui_2020,x=Part_kanak, label = Commune),
-    color = "darkred", size = 5
+    aes(x = dipl_sup, y = cadres, label = commune),
+    color = "darkred", size = 2
   )
 
 
 
-
 #geom_label fonctionne sur le même principe que geom_text
-ggplot(rp) + geom_label(aes(y=Part_Oui_2020,x=Part_kanak, label = Commune))
-
+ggplot(rp) + geom_label(aes(x = dipl_sup, y = cadres, label = commune))
 
 
 
 ######################################################Geom_line#####################################################
+evo_pop_communes <- Caledocensus::evo_pop_communes
+evo_pop_communes <- filter(  evo_pop_communes,Province!="Province Sud")
 
-evo_pop_communes <- filter(evo_pop_communes,Province!="Province Sud")
 
-
-ggplot(evo_pop_communes) + geom_line(aes(x = Annee, y = Effectifs,color=Commune))
+ggplot(evo_pop_communes) + geom_line(aes(x = Annee, y = Pop,color=Commune))
 
 
 
 ###################################################Geom_boxplot######################################################
-ggplot(rp) + geom_boxplot(aes(x = Province, y = Part_kanak))
-
+ggplot(rp) + geom_boxplot(aes(x = departement, y = maison))
 
 # fill = couleur de remplissage
 
 ggplot(rp) +
-  geom_boxplot(
-    aes( x = Province, y = Part_kanak),
+  geom_boxplot(aes(x = departement, y = maison),
     fill = "wheat", color = "tomato4"
   )
 
 # avec varwidht = TRUE on peut faire varier la largeur des boites selon les effectifs d'une classe
 ggplot(rp) +
-  geom_boxplot(aes(x = Province, y = Part_kanak), varwidth = TRUE)
+  geom_boxplot(aes(x = departement, y = maison), varwidth = TRUE)
 
 
-#On peut visualiser plusieurs geom en meme temps avec le bon mapping 
 
-ggplot(rp,aes(x = Province, y = Part_kanak,fill=Province)) +
-  geom_boxplot(varwidth = TRUE)+
-  geom_jitter()
 ##################################################Geom_bar###################################################
 
 # avec les graphiques en baton, on peut faire du simple comptage en ne designant qu'une seule variable
-ggplot(rp) + geom_bar(aes(x = Province)) 
-
+ggplot(rp) + geom_bar(aes(x = departement))
 #dans ce cas, la variable manquante sera simplement l'effectif du jeu de donnees
 
 #on peut changer le sens de l'axe en le mettant en y
-ggplot(rp) + geom_bar(aes(y = Province))
-
+ggplot(rp) + geom_bar(aes(y = departement))
 
 #ou en utilisant la fonction coord_flip
-ggplot(rp) +
-    geom_bar(aes(x = Province)) +
+ggplot(rp) + geom_bar(aes(x = departement))+
   coord_flip()
+
+
 
 #ici aussi on peut visualiser plusieurs variables avec le mapping
 
-ggplot(rp) +
-  geom_bar(aes(x = Province,fill=Pop_18_plus_classe)) +
-  coord_flip()
-
+ggplot(rp) + geom_bar(aes(x = departement, fill = pop_cl))
 
 
 # avec l'argument position, on peut changer la position des batons
 
 #les uns a cotes des autres
-ggplot(rp) +
-  geom_bar(aes(x = Province,fill=Pop_18_plus_classe),position = position_dodge2()) +
+ggplot(rp) + geom_bar(aes(x = departement, fill = pop_cl),position = position_dodge2()) +
   coord_flip()
 
 #ou en valeur relative
 ggplot(rp) +
-  geom_bar(aes(x = Province,fill=Pop_18_plus_classe),position = position_fill()) +
-  coord_flip()
-
+  geom_bar(
+    aes(x = departement, fill = pop_cl),
+    position = "fill"
+  )
 
 
 ########################################Utiliser plusieurs sources de donnnées#####################################
 
 #On peut associer à différents geom des sources de données différentes. 
 #exemple ici, on va afficher uniquement le label des communes de plus de 5k habitants
-com3000 <- filter(rp,Pop_18_plus_total  >= 3000)
+com50 <- filter(rp, pop_tot >= 50000)
 
-  
-ggplot(data = rp, aes(x = Part_kanak, y = Part_Oui_2020)) +
+
+ggplot(data = rp, aes(x = dipl_sup, y = cadres)) +
   geom_point(alpha = 0.2) +
-  geom_text(data = com3000, aes(label = Commune), #la deuxième source de donnes est indiquee ici
+  geom_text(
+    data = com50, aes(label = commune),
     color = "red", size = 3
   )
-
 #####################################Faceting###########################################################
 
 #Le faceting permet d’effectuer plusieurs fois le même graphique selon les valeurs d’une ou plusieurs variables qualitatives.
 #Exemple  la part des cadres selon le département, avec un histogramme pour chacun de ces départements.
 ggplot(data = rp) +
-  geom_histogram(aes(x =Part_cadre )) +
-  facet_wrap(~Province)
-
+  geom_histogram(aes(x = cadres)) +
+  facet_wrap(~departement)
 
 #facet_grid fonctionne sur le meme principe
 ggplot(data = rp) +
-  geom_histogram(aes(x =Part_cadre )) +
-  facet_grid(~Province)
+  geom_histogram(aes(x = cadres)) +
+  facet_grid(~departement)
 
 
 #On peut combiner deux variables pour le faceting
 ggplot(data = rp) +
-  geom_histogram(aes(x = Part_cadre)) +
-  facet_wrap(Province~Pop_18_plus_classe)
-
-ggplot(data = rp) +
-  geom_histogram(aes(x = Part_cadre)) +
-  facet_grid(Province~Pop_18_plus_classe)
+  geom_histogram(aes(x = cadres)) +
+  facet_grid(departement~pop_cl)
+  
 
 #####################################Scales###########################################################
 
@@ -195,116 +177,102 @@ ggplot(data = rp) +
 #scale_size
 
 ggplot(rp) +
-  geom_point(
-    aes(y=Part_Oui_2020,x=Part_kanak, size = Pop_18_plus_total)
-  )+
-  scale_size_continuous(range = c(2,6))
+  geom_point(aes(x = dipl_sup, y = cadres, size = pop_tot)) +
+  scale_size(range = c(0, 20))
 
 
 ggplot(rp) +
-  geom_point(
-    aes(y=Part_Oui_2020,x=Part_kanak, size = Pop_18_plus_total)
-  )+
-  scale_size_continuous(range = c(1,20))
+  geom_point(aes(x = dipl_sup, y = cadres, size = pop_tot)) +
+  scale_size(range = c(2, 8))
 
-
-
-
-
-#scale_percent
 
 ggplot(rp) +
-  geom_point(
-    aes(y=Part_Oui_2020,x=Part_kanak, size = Pop_18_plus_total)
-  )+
-  scale_size_continuous(range = c(1,20))+
-  scale_x_percent()+
-  scale_y_percent()
+  geom_point(aes(x = dipl_sup, y = cadres, size = pop_tot)) +
+  scale_size(
+    "Population",
+    range = c(0, 15),
+    breaks = c(1000, 5000, 10000, 50000)
+  )
 
+#scale_continuous
+
+ggplot(rp) +
+  geom_point(aes(x = dipl_sup, y = cadres)) +
+  scale_x_continuous(limits = c(0,100)) +
+  scale_y_continuous(limits = c(0,100))
+
+
+
+ggplot(rp) +
+  geom_point(aes(x = dipl_sup, y = cadres)) +
+  scale_x_continuous("Part des diplômés du supérieur (%)", limits = c(0,100)) +
+  scale_y_continuous("Part des cadres (%)", limits = c(0,100))
+
+
+#scale_log
+ggplot(rp) +
+  geom_point(aes(x = dipl_sup, y = cadres)) +
+  scale_x_log10("Diplômés du supérieur")
 
 # scale_color et scale_fill
 
 
 #variables quantitatives
 ggplot(rp) +
-  geom_point(
-    aes(y=Part_Oui_2020,x=Part_kanak, color = Part_inactif, size = Pop_18_plus_total)
-  )+
-  scale_size_continuous(range = c(1,20))+
-  scale_x_percent()+
-  scale_y_percent()
+  geom_point(aes(x = dipl_sup, y = cadres, color = chom))
+
+#scale_color_gradient
+ggplot(rp) +
+  geom_point(aes(x = dipl_sup, y = cadres, color = chom)) +
+  scale_color_gradient("Taux de chômage", low = "white", high = "red")
 
 
 #viridis
 ggplot(rp) +
-  geom_point(
-    aes(y=Part_Oui_2020,x=Part_kanak, color = Part_inactif, size = Pop_18_plus_total)
-  )+
-  scale_size_continuous(range = c(1,20))+
-  scale_x_percent()+
-  scale_y_percent()+
-  scale_color_viridis_c("Part d'inactifs")
+  geom_point(aes(x = dipl_sup, y = cadres, color = chom)) +
+  scale_color_viridis_c("Taux de chômage")
 
 
 ggplot(rp) +
-  geom_point(
-    aes(y=Part_Oui_2020,x=Part_kanak, color = Part_inactif, size = Pop_18_plus_total)
-  )+
-  scale_size_continuous(range = c(1,20))+
-  scale_x_percent()+
-  scale_y_percent()+
-  scale_color_viridis_c("Part d'inactifs",option = "magma")
-
+  geom_point(aes(x = dipl_sup, y = cadres, color = chom)) +
+  scale_color_viridis_c("Taux de chômage", option = "plasma")
 #distiller
 
 ggplot(rp) +
-  geom_point(
-    aes(y=Part_Oui_2020,x=Part_kanak, color = Part_inactif, size = Pop_18_plus_total)
-  )+
-  scale_size_continuous(range = c(1,20))+
-  scale_x_percent()+
-  scale_y_percent()+
-  scale_color_distiller("Part d'inactifs", palette = "Spectral")
-
+  geom_point(aes(x = dipl_sup, y = cadres, color = chom)) +
+  scale_color_distiller("Taux de chômage", palette = "Spectral")
 #variables qualitatives
+
+ggplot(rp) +
+  geom_point(aes(x = dipl_sup, y = cadres, color = departement))
 
 
 ggplot(rp) +
-  geom_point(
-    aes(y=Part_Oui_2020,x=Part_kanak, color = Province, size = Pop_18_plus_total)
-  )+
-  scale_size_continuous(range = c(1,20))+
-  scale_x_percent()+
-  scale_y_percent()+
-  scale_color_brewer(palette = "Set1")
+  geom_point(aes(x = dipl_sup, y = cadres, color = departement)) +
+  scale_color_manual(
+    "Département",
+    values = c("red", "#FFDD45", rgb(0.1,0.2,0.6), "darkgreen", "grey80")
+  )
+
+ggplot(rp) +
+  geom_point(aes(x = dipl_sup, y = cadres, color = departement)) +
+  scale_color_brewer("Département", palette = "Set1")
 
 #liste des couleurs
 RColorBrewer::display.brewer.all()
 
 #themes
 ggplot(rp) +
-  geom_point(
-    aes(y=Part_Oui_2020,x=Part_kanak, color = Province, size = Pop_18_plus_total)
-  )+
-  scale_size_continuous(range = c(1,20))+
-  scale_x_percent()+
-  scale_y_percent()+
-  scale_color_brewer(palette = "Set1")+
+  geom_point(aes(x = dipl_sup, y = cadres, color = departement)) +
+  scale_color_brewer("Département", palette = "Set1")+
   theme_ipsum()
 
 #labs
 ggplot(rp) +
-  geom_point(
-    aes(y=Part_Oui_2020,x=Part_kanak, color = Province, size = Pop_18_plus_total)
-  )+
-  scale_size_continuous(range = c(1,20))+
-  scale_x_percent()+
-  scale_y_percent()+
-  scale_color_brewer(palette = "Set1")+
+  geom_point(aes(x = dipl_sup, y = cadres, color = departement)) +
+  scale_color_brewer( palette = "Set1")+
   theme_ipsum()+
-  labs(x="Part des Kanak (%)",y="Part du Oui au référendum 2020",color="Province",size="Nombre d'individus de 18 ans et plus")
-
-
+  labs(y="Part des cadres (%)",x="Part des diplomés du supérieur (%)",title = "Cadres et diplomes")
 
 #package esquisse pour s'entrainer 
 
