@@ -1,9 +1,7 @@
 #######################Cours 4  : Recodage de variables ##############################################################################
 if(!require("pacman"))install.packages("pacman")
-if(!require("devtools"))install.packages("devtools")
 pacman::p_load("tidyverse","questionr","here","writexl")
-if(!require("Caledocensus"))devtools::install_github("https://github.com/IACPouembout/Caledocensus",force = TRUE,dependencies = FALSE)
-library(Caledocensus)
+
 
 
 
@@ -51,24 +49,24 @@ rp19 <- rp19_ind[1:5000,]
 
 #########Lire un fichier csv#######
 
-write.csv(rp19,here("RGP_2019_ind_ISEE.csv"))
+write.csv(rp19,here("data.csv"))
 
-rp19 <- read_csv(here("RGP_2019_ind_ISEE.csv"))
+rp19 <- read_csv(here("data.csv"))
 
 #On peut aussi passer par l'interface
 
 #######Lire un fichier excel#####
 
-writexl::write_xlsx(rp19,here(  "RGP_2019_ind_ISEE.xlsx"))
+writexl::write_xlsx(rp19,here(  "data.xlsx"))
 
-rp19 <- read_xlsx(here( "RGP_2019_ind_ISEE.xlsx"))
+rp19 <- read_xlsx(here( "data.xlsx"))
 
 
 #####Lire un fichier stata####
 
-write_dta(rp19,here("RGP_2019_ind_ISEE.dta"))
+write_dta(rp19,here("data.dta"))
 
-rp19 <- read_dta(here("RGP_2019_ind_ISEE.dta"))
+rp19 <- read_dta(here("data.dta"))
 
 
 
@@ -89,96 +87,93 @@ f <- fct_recode(
 
 
 
-library(Caledocensus)
-rp19 <- rp19_ind[1:5000,]
+data("hdv2003")
 
 #On va recoder la variable TACT
 
 
-levels(rp19$TACT)
-freq(rp19$TACT)
+levels(hdv2003$qualif)
+freq(hdv2003$qualif)
 
 
 
-rp19$TACT6 <- fct_recode(
-  rp19$TACT,
-  "Etudes,stage ou apprentissage" = "Apprentissage sous contrat ou stage rémunéré",
-  "Etudes,stage ou apprentissage" = "Études ou stage non rémunéré",
+hdv2003$qualif5 <- fct_recode(
+  hdv2003$qualif,
+  "Ouvrier" = "Ouvrier specialise",
+  "Ouvrier" = "Ouvrier qualifie",
+  "Interm" = "Technicien",
+  "Interm" = "Profession intermediaire"
 )
 
-freq(rp19$TACT6)
+freq(hdv2003$qualif5)
 
 
 
 #pour transformer une modalite en NA, on lui assigne la valeur NULL
 
-rp19$TACT6 <- fct_recode(
-  rp19$TACT6, 
-  NULL = "Autre situation"
+hdv2003$qualif_rec <- fct_recode(
+  hdv2003$qualif, 
+  NULL = "Autre"
 )
 
 
-freq(rp19$TACT6)
+freq(hdv2003$qualif_rec)
 
 
 
 #pour recoder les variables manquantes, on utilise fct_explicit_na
 
-rp19$TACT6 <- fct_explicit_na(rp19$TACT6, na_level = "Non renseigné")
-
-freq(rp19$TACT6)
+hdv2003$qualif_rec <- fct_explicit_na(hdv2003$qualif, na_level = "(Manquant)")
+freq(hdv2003$qualif_rec)
 
 # d'autres fonctions de recodage
 
 
 #fct_other pour transformer une liste de modalites en "others
-rp19$TACT_rec <- fct_other(
-  rp19$TACT,
-  drop = c("Autre situation",
-           "Apprentissage sous contrat ou stage rémunéré",
-           "Études ou stage non rémunéré")
+hdv2003$qualif_rec <- fct_other(
+  hdv2003$qualif,
+  drop = c("Ouvrier specialise", "Ouvrier qualifie", "Cadre", "Autre")
 )
 
-freq(rp19$TACT_rec)
+freq(hdv2003$qualif_rec)
 
 
 #fct_lump pour transformer en "others" les modalites les moins frequentes
 
-rp19$TACT_rec <- fct_lump(rp19$TACT)
+hdv2003$qualif_rec <- fct_lump(hdv2003$qualif)
 
-freq(rp19$TACT_rec)
+freq(hdv2003$qualif_rec)
 
 
 ##inteface graphique de recodage
 
 #on peux directement selectionner la variable a recoder et utiliser l'interface graphique de questionr dans "addins"
 
-irec(rp19$TACT)
+irec(hdv2003$qualif)
 
 
 #ordonner les variables avec fct_reorder
-rp19$TACT_rec <- fct_relevel(rp19$TACT ,
-    "Emploi", "Retraite ou pré-retraite", "Études ou stage non rémunéré","Chômage", "Femme ou homme au foyer",
-    "Autre situation",  "Apprentissage sous contrat ou stage rémunéré"
-    
-  )
-
-freq(rp19$TACT_rec)
-
+hdv2003$qualif_rec <- fct_relevel(
+  hdv2003$qualif,
+  "Cadre", "Profession intermediaire", "Technicien",
+  "Employe", "Ouvrier qualifie", "Ouvrier specialise",
+  "Autre"
+)
+freq(hdv2003$qualif_rec)
 
 ##ordonner les variables en fonction d'une autre
 
-plot(rp19$TACT6,rp19$AGER)
+plot(hdv2003$occup,hdv2003$age)
 
 #avec fct_reorder on reordonne les modalites selon l'age median
-rp19$TACT_age <- fct_reorder(rp19$TACT6,rp19$AGER, median)
+hdv2003$occup_age <- fct_reorder(hdv2003$occup,hdv2003$age, median)
 
-plot(rp19$TACT_age,rp19$AGER)
+plot(hdv2003$qualif_age,hdv2003$age)
 
 
 ##ici aussi on peux utiliser l'interface graphique de questionr
 
-iorder(rp19$TACT)
+iorder(hdv2003$qualif)
 
 
 #######################################Recodage conditionnel avec ifelse#############################################################
@@ -190,26 +185,23 @@ ifelse(v > 10, "Supérieur à 10", "Inférieur à 10")
 
 
 
-
-rp19$statut <- ifelse(
- rp19$GENRE == "Homme" & rp19$AGER > 60,
+hdv2003$statut <- ifelse(
+  hdv2003$sexe == "Homme" & hdv2003$age > 60,
   "Homme de plus de 60 ans",
   "Autre"
 )
-
-freq(rp19$statut)
+freq(hdv2003$statut)
 
 
 
 #########################################Recodage conditionnel avec case_when########################################################
 
-rp19$statut <- case_when(
-  rp19$AGER > 60 &  rp19$GENRE == "Homme" ~ "Homme de plus de 60 ans",
-  rp19$AGER > 60 &  rp19$GENRE == "Femme" ~ "Femme de plus de 60 ans",
+hdv2003$statut <- case_when(
+  hdv2003$age > 60 & hdv2003$sexe == "Homme" ~ "Homme de plus de 60 ans",
+  hdv2003$age > 60 & hdv2003$sexe == "Femme" ~ "Femme de plus de 60 ans",
   TRUE ~ "Autre"
 )
-
-freq(rp19$statut)
+freq(hdv2003$statut)
 
 #l'ordre des conditions est important, elles sont testees les unes apres les autres
 
@@ -226,36 +218,31 @@ freq(rp19$statut)
 #pour que ça fonctionne, il faut que les conditions les plus generales soit apres les conditions specifiques
 
 
-rp19$statut <- case_when(
-  rp19$GENRE == "Homme" & rp19$AGER > 60 ~ "Homme de plus de 60 ans",
-  rp19$GENRE == "Homme" ~ "Homme",
+hdv2003$statut <- case_when(
+  hdv2003$sexe == "Homme" & hdv2003$age > 60 ~ "Homme de plus de 60 ans",
+  hdv2003$sexe == "Homme" ~ "Homme",
   TRUE ~ "Autre"
 )
-
-freq(rp19$statut)
-
-
+freq(hdv2003$statut)
 
 ###############################################Découper une variable numérique en classe#############################################
 
 #avec la fonction cut, la variable est automatiquement découpée en un nombre de classes spécifiées
-rp19$AGER_gp <- cut(rp19$AGER, breaks = 5)
-
-freq(rp19$AGER_gp)
+hdv2003$agecl <- cut(hdv2003$age, breaks = 5)
+freq(hdv2003$agecl)
 
 #il est possible de préciser manuellement les classes
-rp19$AGER_gp <- cut(
-  rp19$AGER,
-  breaks = c(0,18, 25, 35, 45, 55, 65, 104),
+hdv2003$agecl <- cut(
+  hdv2003$age,
+  breaks = c(18, 25, 35, 45, 55, 65, 97),
   include.lowest = TRUE
 )
-
-freq(rp19$AGER_gp)
+freq(hdv2003$agecl)
 
 #on peut egalement utiliser l'interface graphique
 
 
-icut(rp19$AGER)
+icut(hdv2003$age)
 
 
 ################################################################EXERCICES######################################################################

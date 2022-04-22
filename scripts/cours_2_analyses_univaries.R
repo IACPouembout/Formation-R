@@ -7,17 +7,13 @@
 #################### 2.1  Les packages ###########################################################################################
 
 if(!require("pacman"))install.packages("pacman")
-if(!require("devtools"))install.packages("devtools")
-
-pacman::p_load("questionr","tidyverse")
-if(!require("Caledocensus"))devtools::install_github("https://github.com/IACPouembout/Caledocensus",force = TRUE,dependencies = FALSE)
-library(Caledocensus)
+pacman::p_load("questionr")
 
 #################### 2.2  Les tableaux ###########################################################################################
 
 
 
-data <- rp19_ind
+data <- hdv2003
 
 
 #quelle est la structure du tableau ?
@@ -28,50 +24,50 @@ names(data)
 str(data)
 
 ##Le signe $ permet de sélectionner les variables du tableau
-data$AGER
+data$age
 
 
 #On peut regarder les premières ou dernières valeurs de la variable
-head(data$AGER)
-tail(data$AGER)
+head(data$age)
+tail(data$age)
 
 
 #moyenne et mediane
-mean(data$AGER)
+mean(data$age)
 
-median(data$AGER)
+median(data$age)
 
 
 ##dispersion
-max(data$AGER) - min(data$AGER)
+max(data$age) - min(data$age)
 
-var(data$AGER)
+var(data$age)
 
-sd(data$AGER)
+sd(data$age)
 
-quantile(data$AGER)
+quantile(data$age)
 
 
-summary(data$AGER)
+summary(data$age)
 
 
 ##Il est possible de créer directement des nouvelles variables
-data$duree_installation <- data$ANNINS -2019
-
+head(d$heures.tv, 10)
+d$minutes.tv <- d$heures.tv * 60
 
 
 #################### 2.3 representations graphiques ###########################################################################################
 
 #histogramme
-hist(data$AGER)
+hist(data$age)
 
 #on peut déterminer l'échelle de l'axe avec breaks
-hist(data$AGER, breaks = 10)
+hist(data$age, breaks = 10)
 
-hist(data$AGER, breaks = 70)
+hist(data$age, breaks = 70)
 
 
-hist(data$AGER, col = "skyblue",
+hist(data$age, col = "skyblue",
      main = "Répartition par âge de la population",
      xlab = "Âge",
      ylab = "Effectif")
@@ -83,21 +79,21 @@ hist(data$AGER, col = "skyblue",
 
 
 #la fonction table permet de faire un tri a plat
-table(data$TACT)
+table(data$qualif)
 
 #la fonction freq permet d'avoir egalement les proportions
-freq(data$TACT)
+freq(data$qualif)
 
 #on peut trier par ordre décroissant
-freq(data$TACT, valid = FALSE, total = TRUE, sort = "dec")
+freq(data$qualif, valid = FALSE, total = TRUE, sort = "dec")
 
 
 
 
 #################### 2.5 Représentations graphiques ############################################################################
 
-#repartition selon la situation conjugale
-tab=table(data$COUPLE)
+#repartition selon la croyance dans les classes sociales
+tab=table(data$cslo)
 
 #graphique en baton
 barplot(tab)
@@ -115,15 +111,14 @@ dotchart(sort(tab))
 ####################################################Exercice 1################################################################
 
 
-#On souhaite étudier la répartition de l'année d'installation parmi les enquêtés
+#On souhaite étudier la répartition du temps passé devant la télévision par les enquêtés (variable heures.tv). 
 #Pour cela, affichez les principaux indicateurs de cette variable : valeur minimale, maximale, moyenne, médiane et écart-type. 
 #Représentez ensuite sa distribution par un histogramme en 10 classes.
 
 
 ####################################################Exercice 2################################################################
-data <- rp19_log
-#On s’intéresse maintenant à la période d'achèvement de construction des logements. Faites un tri à plat des effectifs des modalités de cette variable avec la commande table.
-
+#On s’intéresse maintenant à l’importance accordée par les enquêtés à leur travail (variable trav.imp). 
+#Faites un tri à plat des effectifs des modalités de cette variable avec la commande table
 #Faites un tri à plat affichant à la fois les effectifs et les pourcentages de chaque modalité. Y’a-t-il des valeurs manquantes ?
 
 #Représentez graphiquement les effectifs des modalités à l’aide d’un graphique en barres.

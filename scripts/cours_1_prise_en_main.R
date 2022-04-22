@@ -20,8 +20,13 @@
 #on peut stocker des chiffres dans des objets
 x <- 2
 
+
+
 #et effectuer des opérations sur ces objets
 x+4
+
+
+
 
 y <- 5
 
@@ -31,7 +36,7 @@ resultat
 
 ###On peut aussi stocker du texte 
 
-chien="bouledogue"
+chien <- "bouledogue"
 
 chien
 
@@ -78,7 +83,7 @@ class(diplome)
 class(faux)
 class(as.factor(diplome))
 
-#exemple de coecicion quand on mélange des vecteurs de différents types
+#exemple de coercicion quand on mélange des vecteurs de différents types
 
 x <- 1
 y <- "2"

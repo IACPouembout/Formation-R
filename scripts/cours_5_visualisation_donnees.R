@@ -1,9 +1,8 @@
 #######################Cours 5 : visualisation de donnees ##############################################################################
-if(!require("devtools"))install.packages("devtools")
 if(!require("pacman"))install.packages("pacman")
 
 pacman::p_load("tidyverse",
-               "here","ggthemes","ggThemeAssist","hrbrthemes","questionr")
+               "here","ggthemes","ggThemeAssist","questionr")
 
 
 
@@ -265,13 +264,13 @@ RColorBrewer::display.brewer.all()
 ggplot(rp) +
   geom_point(aes(x = dipl_sup, y = cadres, color = departement)) +
   scale_color_brewer("Département", palette = "Set1")+
-  theme_ipsum()
+  theme_minimal()
 
 #labs
 ggplot(rp) +
   geom_point(aes(x = dipl_sup, y = cadres, color = departement)) +
   scale_color_brewer( palette = "Set1")+
-  theme_ipsum()+
+  theme_minimal()+
   labs(y="Part des cadres (%)",x="Part des diplomés du supérieur (%)",title = "Cadres et diplomes")
 
 #package esquisse pour s'entrainer 

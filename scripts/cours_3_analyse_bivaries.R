@@ -1,18 +1,17 @@
 #######################Cours 3  : Analyses bivariées  ##############################################################################
 
 if(!require("pacman"))install.packages("pacman")
-if(!require("devtools"))install.packages("devtools")
-pacman::p_load("questionr","tidyverse")
-if(!require("Caledocensus"))devtools::install_github("https://github.com/IACPouembout/Caledocensus",force = TRUE,dependencies = FALSE)
-library(Caledocensus)
+pacman::p_load("questionr")
+
 
 #################### 3.1 Croisement de 2 variables qualitatives #####################################################################
-rp19 <- rp19_ind[1:5000,]
+data(hdv2003)
+d <- hdv2003
 
 
+table(d$qualif, d$sexe)
 
-table(rp19$TACT, rp19$GENRE)
-tab <- table(rp19$TACT, rp19$GENRE)
+tab <- table(d$qualif, d$sexe)
 lprop(tab)
 cprop(tab)
 
@@ -28,33 +27,28 @@ mosaicplot(tab, las = 3, shade = TRUE)
 #################### 3.2 Croisement d'une variables qualitative et d'une variable quantitative ########################################
 
 #representation graphique
-boxplot(rp19$AGER~ rp19$TP)
-
+boxplot(d$age ~ d$sport)
 #calcul d'indicateurs
-temps_partiel <- filter(rp19, COUPLE == "Vit en couple")
-noncouple <- filter(rp19, COUPLE == "Ne vit pas en couple")
+d_sport <- subset(d, sport == "Oui")
+d_nonsport <- subset(d, sport == "Non")
+mean(d_sport$age)
+mean(d_nonsport$age)
 
-mean(couple$AGER)
-mean(noncouple$AGER)
-
-
-tapply(rp19$AGER, rp19$COUPLE, mean,na.rm=T)
-
+tapply(d$age, d$sport, mean)
 
 
 
 #tests statistiques
-t.test(rp19$AGER~ rp19$COUPLE)
-
+t.test(d$age ~ d$sport)
 ###Avant de faire un t.test, il faut vérifier la normalité des données
 
-hist(couple$AGER)
-hist(noncouple$AGER)
+hist(d_sport$age)
+hist(d_nonsport$age)
 
-shapiro.test(couple$AGER)
-shapiro.test(noncouple$AGER)
+shapiro.test(d_sport$age)
+shapiro.test(d_nonsport$age)
 
-wilcox.test(rp19$AGER~ rp19$COUPLE)
+wilcox.test(d$age ~ d$sport)
 
 #################### 3.2 Croisement de deux variables quantitatives ########################################
 data(rp2018)
@@ -78,13 +72,13 @@ summary(reg)
 plot(rp2018$dipl_sup, rp2018$cadres)
 abline(reg, col = "red")
 ################################################################EXERCICES######################################################################
+data("hdv2003")
 
-rp19_log <- Caledocensus::rp19_log
 ####################################################Exercice 1################################################################
 
-#Dans le jeu de données rp19_log, faire le tableau croisé entre le diplome de la personne de référence et 
-#le fait que le logement dispose d'un accès à internet. 
-
+#Dans le jeu de données `hdv2003`, faire le tableau croisé entre la catégorie socio-professionnelle (variable `qualif`) 
+#et le fait de croire ou non en l'existence des classes sociales (variable `clso`). Identifier la variable indépendante et la variable dépendante, 
+#et calculer les pourcentages ligne ou colonne. Interpréter le résultat.
 
 #Identifier la variable indépendante et la variable dépendante, et calculer les pourcentages ligne ou colonne. Interpréter le résultat.
 
@@ -92,8 +86,7 @@ rp19_log <- Caledocensus::rp19_log
 
 #Représenter ce tableau croisé sous la forme d’un mosaicplot en colorant les cases selon les résidus du test du χ².
 ####################################################Exercice 2################################################################
-
-#Toujours sur le jeu de données rp19_log, faire le boxplot qui croise le nombre d’heures passées devant la télévision (variable heures.tv) 
+#Sur le jeu de données hdv2003, faire le boxplot qui croise le nombre d’heures passées devant la télévision (variable heures.tv) 
 #avec le statut d’occupation (variable occup).
 
 
