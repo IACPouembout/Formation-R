@@ -179,7 +179,7 @@ rp19_ind%>%
   group_by(PROV,GENRE)%>%
   summarise(n=n())
 
-#filtrage de l'age 
+#filtrage de l'age moyen max
 rp19_ind%>%
   group_by(PROV,ILN)%>%
   summarise(Age_moyen=mean(AGEA))%>%

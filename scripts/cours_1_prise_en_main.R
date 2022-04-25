@@ -27,7 +27,6 @@ x+4
 
 
 
-
 y <- 5
 
 #et avec ces objets
@@ -39,6 +38,10 @@ resultat
 chien <- "bouledogue"
 
 chien
+
+#on ne peut pas mélanger des objets de natures différentes !
+
+chien + x
 
 #########################  1.3 Vecteurs########################################################################################
 
@@ -65,6 +68,21 @@ tailles_m
 poids <- c(45, 59, 110, 44, 88)
 imc <- poids / (tailles / 100) ^ 2
 imc
+
+####################################################Exercice 1################################################################
+
+#Construire le vecteur x suivant :
+
+#> [1] 120 134 256  12
+
+
+#Utiliser ce vecteur x pour générer les deux vecteurs suivants :
+
+#> [1] 220 234 356 112
+#> [1] 240 268 512  24
+
+###########################################################################################################################
+
 
 
 
@@ -139,29 +157,11 @@ mean(tailles,na.rm = TRUE)
 
 
 
-
-################################################################EXERCICES######################################################################
-
-
-####################################################Exercice 1################################################################
-
-#Construire le vecteur x suivant :
-  
-#> [1] 120 134 256  12
-
-
-#Utiliser ce vecteur x pour générer les deux vecteurs suivants :
-  
-  #> [1] 220 234 356 112
-  #> [1] 240 268 512  24
-
-
-
 ######################################################Exercice 2################################################################
 
 
 #On a demandé à 4 ménages le revenu des deux conjoints, et le nombre de personnes du ménage :
-  
+
 conjoint1 <- c(1200, 1180, 1750, 2100)
 conjoint2 <- c(1450, 1870, 1690, 0)
 nb_personnes <- c(4, 2, 3, 2)
@@ -169,6 +169,7 @@ nb_personnes <- c(4, 2, 3, 2)
 
 #Calculer le revenu total de chaque ménage, 
 #puis diviser par le nombre de personnes pour obtenir le revenu par personne de chaque ménage.
+
 
 ######################################################Exercice 3################################################################
 

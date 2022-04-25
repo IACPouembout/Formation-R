@@ -73,12 +73,9 @@ ggplot(rp) + geom_label(aes(x = dipl_sup, y = cadres, label = commune))
 
 
 ######################################################Geom_line#####################################################
-evo_pop_communes <- Caledocensus::evo_pop_communes
-evo_pop_communes <- filter(  evo_pop_communes,Province!="Province Sud")
 
 
-ggplot(evo_pop_communes) + geom_line(aes(x = Annee, y = Pop,color=Commune))
-
+ggplot(economics) + geom_line(aes(x =date, y = pop))
 
 
 ###################################################Geom_boxplot######################################################

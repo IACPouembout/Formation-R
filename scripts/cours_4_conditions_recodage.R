@@ -3,6 +3,36 @@ if(!require("pacman"))install.packages("pacman")
 pacman::p_load("tidyverse","questionr","here","writexl")
 
 
+################################################Import et export de fichiers#########################################################
+
+data("hdv2003")
+
+data <- hdv2003
+
+#########Lire un fichier csv#######
+
+write.csv(data,here("data.csv"))
+
+data <- read_csv(here("data.csv"))
+
+#On peut aussi passer par l'interface
+
+#######Lire un fichier excel#####
+
+writexl::write_xlsx(data,here(  "data.xlsx"))
+
+data <- read_xlsx(here( "data.xlsx"))
+
+
+#####Lire un fichier stata####
+
+write_dta(data,here("data.dta"))
+
+data <- read_dta(here("data.dta"))
+
+
+
+rm(list = ls())
 
 
 ##############################################Tests et comparaisons################################################################
@@ -42,35 +72,6 @@ vec == "Jaune" | vec == "Vert"
 
 
 
-################################################Import et export de fichiers#########################################################
-library(Caledocensus)
-
-rp19 <- rp19_ind[1:5000,]
-
-#########Lire un fichier csv#######
-
-write.csv(rp19,here("data.csv"))
-
-rp19 <- read_csv(here("data.csv"))
-
-#On peut aussi passer par l'interface
-
-#######Lire un fichier excel#####
-
-writexl::write_xlsx(rp19,here(  "data.xlsx"))
-
-rp19 <- read_xlsx(here( "data.xlsx"))
-
-
-#####Lire un fichier stata####
-
-write_dta(rp19,here("data.dta"))
-
-rp19 <- read_dta(here("data.dta"))
-
-
-
-rm(list = ls())
 
 
 ###################################################Recodage de variables##############################################################
