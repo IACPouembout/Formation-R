@@ -1,0 +1,364 @@
+"","Province","Commune","Annee","Pop"
+"1","Province Nord","Belep",1956,529
+"2","Province Nord","Belep",1963,573
+"3","Province Nord","Belep",1969,551
+"4","Province Nord","Belep",1976,624
+"5","Province Nord","Belep",1983,686
+"6","Province Nord","Belep",1989,745
+"7","Province Nord","Belep",1996,923
+"8","Province Nord","Belep",2004,930
+"9","Province Nord","Belep",2009,895
+"10","Province Nord","Belep",2014,843
+"11","Province Nord","Belep",2019,867
+"12","Province Sud","Boulouparis",1956,483
+"13","Province Sud","Boulouparis",1963,635
+"14","Province Sud","Boulouparis",1969,846
+"15","Province Sud","Boulouparis",1976,925
+"16","Province Sud","Boulouparis",1983,1139
+"17","Province Sud","Boulouparis",1989,1456
+"18","Province Sud","Boulouparis",1996,1591
+"19","Province Sud","Boulouparis",2004,2089
+"20","Province Sud","Boulouparis",2009,2418
+"21","Province Sud","Boulouparis",2014,3005
+"22","Province Sud","Boulouparis",2019,3315
+"23","Province Sud","Bourail",1956,2212
+"24","Province Sud","Bourail",1963,2312
+"25","Province Sud","Bourail",1969,2433
+"26","Province Sud","Bourail",1976,3149
+"27","Province Sud","Bourail",1983,3410
+"28","Province Sud","Bourail",1989,4122
+"29","Province Sud","Bourail",1996,4364
+"30","Province Sud","Bourail",2004,4779
+"31","Province Sud","Bourail",2009,4999
+"32","Province Sud","Bourail",2014,5444
+"33","Province Sud","Bourail",2019,5531
+"34","Province Nord","Canala",1956,2816
+"35","Province Nord","Canala",1963,3097
+"36","Province Nord","Canala",1969,3559
+"37","Province Nord","Canala",1976,3884
+"38","Province Nord","Canala",1983,3842
+"39","Province Nord","Canala",1989,2907
+"40","Province Nord","Canala",1996,3374
+"41","Province Nord","Canala",2004,3512
+"42","Province Nord","Canala",2009,3341
+"43","Province Nord","Canala",2014,3687
+"44","Province Nord","Canala",2019,3701
+"45","Province Sud","Dumbea",1956,284
+"46","Province Sud","Dumbea",1963,463
+"47","Province Sud","Dumbea",1969,1304
+"48","Province Sud","Dumbea",1976,4191
+"49","Province Sud","Dumbea",1983,5538
+"50","Province Sud","Dumbea",1989,10052
+"51","Province Sud","Dumbea",1996,13888
+"52","Province Sud","Dumbea",2004,18602
+"53","Province Sud","Dumbea",2009,24103
+"54","Province Sud","Dumbea",2014,31812
+"55","Province Sud","Dumbea",2019,35873
+"56","Province Sud","Farino",1956,142
+"57","Province Sud","Farino",1963,172
+"58","Province Sud","Farino",1969,161
+"59","Province Sud","Farino",1976,194
+"60","Province Sud","Farino",1983,253
+"61","Province Sud","Farino",1989,237
+"62","Province Sud","Farino",1996,279
+"63","Province Sud","Farino",2004,459
+"64","Province Sud","Farino",2009,598
+"65","Province Sud","Farino",2014,612
+"66","Province Sud","Farino",2019,712
+"67","Province Nord","Hienghene",1956,1940
+"68","Province Nord","Hienghene",1963,2109
+"69","Province Nord","Hienghene",1969,1846
+"70","Province Nord","Hienghene",1976,1932
+"71","Province Nord","Hienghene",1983,1729
+"72","Province Nord","Hienghene",1989,2122
+"73","Province Nord","Hienghene",1996,2208
+"74","Province Nord","Hienghene",2004,2627
+"75","Province Nord","Hienghene",2009,2399
+"76","Province Nord","Hienghene",2014,2483
+"77","Province Nord","Hienghene",2019,2454
+"78","Province Nord","Houailou",1956,2241
+"79","Province Nord","Houailou",1963,2808
+"80","Province Nord","Houailou",1969,3475
+"81","Province Nord","Houailou",1976,3853
+"82","Province Nord","Houailou",1983,3995
+"83","Province Nord","Houailou",1989,3671
+"84","Province Nord","Houailou",1996,4332
+"85","Province Nord","Houailou",2004,4537
+"86","Province Nord","Houailou",2009,3945
+"87","Province Nord","Houailou",2014,4240
+"88","Province Nord","Houailou",2019,3955
+"89","Province Sud","Ile des pins",1956,674
+"90","Province Sud","Ile des pins",1963,930
+"91","Province Sud","Ile des pins",1969,978
+"92","Province Sud","Ile des pins",1976,1095
+"93","Province Sud","Ile des pins",1983,1287
+"94","Province Sud","Ile des pins",1989,1465
+"95","Province Sud","Ile des pins",1996,1671
+"96","Province Sud","Ile des pins",2004,1840
+"97","Province Sud","Ile des pins",2009,1969
+"98","Province Sud","Ile des pins",2014,1958
+"99","Province Sud","Ile des pins",2019,2037
+"100","Province Nord","Kaala-gomen",1956,1161
+"101","Province Nord","Kaala-gomen",1963,1228
+"102","Province Nord","Kaala-gomen",1969,1296
+"103","Province Nord","Kaala-gomen",1976,1425
+"104","Province Nord","Kaala-gomen",1983,1231
+"105","Province Nord","Kaala-gomen",1989,1549
+"106","Province Nord","Kaala-gomen",1996,1787
+"107","Province Nord","Kaala-gomen",2004,1881
+"108","Province Nord","Kaala-gomen",2009,1931
+"109","Province Nord","Kaala-gomen",2014,2033
+"110","Province Nord","Kaala-gomen",2019,1803
+"111","Province Nord","Kone",1956,2037
+"112","Province Nord","Kone",1963,2340
+"113","Province Nord","Kone",1969,2557
+"114","Province Nord","Kone",1976,2479
+"115","Province Nord","Kone",1983,2919
+"116","Province Nord","Kone",1989,2919
+"117","Province Nord","Kone",1996,4088
+"118","Province Nord","Kone",2004,4500
+"119","Province Nord","Kone",2009,5199
+"120","Province Nord","Kone",2014,7340
+"121","Province Nord","Kone",2019,8144
+"122","Province Nord","Kouaoua",1956,NA
+"123","Province Nord","Kouaoua",1963,NA
+"124","Province Nord","Kouaoua",1969,NA
+"125","Province Nord","Kouaoua",1976,NA
+"126","Province Nord","Kouaoua",1983,NA
+"127","Province Nord","Kouaoua",1989,1059
+"128","Province Nord","Kouaoua",1996,1524
+"129","Province Nord","Kouaoua",2004,1586
+"130","Province Nord","Kouaoua",2009,1345
+"131","Province Nord","Kouaoua",2014,1452
+"132","Province Nord","Kouaoua",2019,1304
+"133","Province Nord","Koumac",1956,2759
+"134","Province Nord","Koumac",1963,2059
+"135","Province Nord","Koumac",1969,1907
+"136","Province Nord","Koumac",1976,2481
+"137","Province Nord","Koumac",1983,1405
+"138","Province Nord","Koumac",1989,2194
+"139","Province Nord","Koumac",1996,2647
+"140","Province Nord","Koumac",2004,3003
+"141","Province Nord","Koumac",2009,3690
+"142","Province Nord","Koumac",2014,4252
+"143","Province Nord","Koumac",2019,3981
+"144","Province Sud","La foa",1956,934
+"145","Province Sud","La foa",1963,1407
+"146","Province Sud","La foa",1969,1333
+"147","Province Sud","La foa",1976,1993
+"148","Province Sud","La foa",1983,2094
+"149","Province Sud","La foa",1989,2155
+"150","Province Sud","La foa",1996,2502
+"151","Province Sud","La foa",2004,2903
+"152","Province Sud","La foa",2009,3323
+"153","Province Sud","La foa",2014,3542
+"154","Province Sud","La foa",2019,3552
+"155","Province des Iles","Lifou",1956,5594
+"156","Province des Iles","Lifou",1963,6082
+"157","Province des Iles","Lifou",1969,6837
+"158","Province des Iles","Lifou",1976,7585
+"159","Province des Iles","Lifou",1983,8128
+"160","Province des Iles","Lifou",1989,8726
+"161","Province des Iles","Lifou",1996,10007
+"162","Province des Iles","Lifou",2004,10320
+"163","Province des Iles","Lifou",2009,8627
+"164","Province des Iles","Lifou",2014,9275
+"165","Province des Iles","Lifou",2019,9195
+"166","Province des Iles","Mare",1956,3104
+"167","Province des Iles","Mare",1963,3240
+"168","Province des Iles","Mare",1969,3410
+"169","Province des Iles","Mare",1976,4156
+"170","Province des Iles","Mare",1983,4610
+"171","Province des Iles","Mare",1989,5646
+"172","Province des Iles","Mare",1996,6896
+"173","Province des Iles","Mare",2004,7401
+"174","Province des Iles","Mare",2009,5417
+"175","Province des Iles","Mare",2014,5648
+"176","Province des Iles","Mare",2019,5757
+"177","Province Sud","Moindou",1956,272
+"178","Province Sud","Moindou",1963,392
+"179","Province Sud","Moindou",1969,291
+"180","Province Sud","Moindou",1976,387
+"181","Province Sud","Moindou",1983,378
+"182","Province Sud","Moindou",1989,461
+"183","Province Sud","Moindou",1996,568
+"184","Province Sud","Moindou",2004,602
+"185","Province Sud","Moindou",2009,704
+"186","Province Sud","Moindou",2014,709
+"187","Province Sud","Moindou",2019,681
+"188","Province Sud","Mont-dore",1956,1288
+"189","Province Sud","Mont-dore",1963,2640
+"190","Province Sud","Mont-dore",1969,4809
+"191","Province Sud","Mont-dore",1976,10659
+"192","Province Sud","Mont-dore",1983,14614
+"193","Province Sud","Mont-dore",1989,16370
+"194","Province Sud","Mont-dore",1996,20780
+"195","Province Sud","Mont-dore",2004,24195
+"196","Province Sud","Mont-dore",2009,25683
+"197","Province Sud","Mont-dore",2014,27155
+"198","Province Sud","Mont-dore",2019,27620
+"199","Province Sud","Noumea",1956,22235
+"200","Province Sud","Noumea",1963,34990
+"201","Province Sud","Noumea",1969,41853
+"202","Province Sud","Noumea",1976,56078
+"203","Province Sud","Noumea",1983,60112
+"204","Province Sud","Noumea",1989,65110
+"205","Province Sud","Noumea",1996,76293
+"206","Province Sud","Noumea",2004,91386
+"207","Province Sud","Noumea",2009,97579
+"208","Province Sud","Noumea",2014,99926
+"209","Province Sud","Noumea",2019,94285
+"210","Province Nord","Ouegoa",1956,1199
+"211","Province Nord","Ouegoa",1963,1363
+"212","Province Nord","Ouegoa",1969,1323
+"213","Province Nord","Ouegoa",1976,1514
+"214","Province Nord","Ouegoa",1983,1468
+"215","Province Nord","Ouegoa",1989,1881
+"216","Province Nord","Ouegoa",1996,2034
+"217","Province Nord","Ouegoa",2004,2114
+"218","Province Nord","Ouegoa",2009,2132
+"219","Province Nord","Ouegoa",2014,2360
+"220","Province Nord","Ouegoa",2019,2118
+"221","Province des Iles","Ouvea",1956,2180
+"222","Province des Iles","Ouvea",1963,2087
+"223","Province des Iles","Ouvea",1969,2001
+"224","Province des Iles","Ouvea",1976,2777
+"225","Province des Iles","Ouvea",1983,2772
+"226","Province des Iles","Ouvea",1989,3540
+"227","Province des Iles","Ouvea",1996,3974
+"228","Province des Iles","Ouvea",2004,4359
+"229","Province des Iles","Ouvea",2009,3392
+"230","Province des Iles","Ouvea",2014,3374
+"231","Province des Iles","Ouvea",2019,3401
+"232","Province Sud","Paita",1956,1397
+"233","Province Sud","Paita",1963,1903
+"234","Province Sud","Paita",1969,2522
+"235","Province Sud","Paita",1976,3407
+"236","Province Sud","Paita",1983,4834
+"237","Province Sud","Paita",1989,6049
+"238","Province Sud","Paita",1996,7862
+"239","Province Sud","Paita",2004,12062
+"240","Province Sud","Paita",2009,16358
+"241","Province Sud","Paita",2014,20616
+"242","Province Sud","Paita",2019,24563
+"243","Province Nord","Poindimie",1956,2152
+"244","Province Nord","Poindimie",1963,2519
+"245","Province Nord","Poindimie",1969,2481
+"246","Province Nord","Poindimie",1976,3010
+"247","Province Nord","Poindimie",1983,3644
+"248","Province Nord","Poindimie",1989,3590
+"249","Province Nord","Poindimie",1996,4340
+"250","Province Nord","Poindimie",2004,4824
+"251","Province Nord","Poindimie",2009,4818
+"252","Province Nord","Poindimie",2014,4868
+"253","Province Nord","Poindimie",2019,5006
+"254","Province Nord","Ponerihouen",1956,1840
+"255","Province Nord","Ponerihouen",1963,1853
+"256","Province Nord","Ponerihouen",1969,1948
+"257","Province Nord","Ponerihouen",1976,2065
+"258","Province Nord","Ponerihouen",1983,1932
+"259","Province Nord","Ponerihouen",1989,2326
+"260","Province Nord","Ponerihouen",1996,2691
+"261","Province Nord","Ponerihouen",2004,2726
+"262","Province Nord","Ponerihouen",2009,2384
+"263","Province Nord","Ponerihouen",2014,2370
+"264","Province Nord","Ponerihouen",2019,2420
+"265","Province Nord","Pouebo",1956,1294
+"266","Province Nord","Pouebo",1963,1388
+"267","Province Nord","Pouebo",1969,1472
+"268","Province Nord","Pouebo",1976,1782
+"269","Province Nord","Pouebo",1983,1503
+"270","Province Nord","Pouebo",1989,2242
+"271","Province Nord","Pouebo",1996,2352
+"272","Province Nord","Pouebo",2004,2381
+"273","Province Nord","Pouebo",2009,2416
+"274","Province Nord","Pouebo",2014,2452
+"275","Province Nord","Pouebo",2019,2144
+"276","Province Nord","Pouembout",1956,482
+"277","Province Nord","Pouembout",1963,577
+"278","Province Nord","Pouembout",1969,587
+"279","Province Nord","Pouembout",1976,734
+"280","Province Nord","Pouembout",1983,692
+"281","Province Nord","Pouembout",1989,854
+"282","Province Nord","Pouembout",1996,1189
+"283","Province Nord","Pouembout",2004,1471
+"284","Province Nord","Pouembout",2009,2078
+"285","Province Nord","Pouembout",2014,2591
+"286","Province Nord","Pouembout",2019,2752
+"287","Province Nord","Poum",1956,NA
+"288","Province Nord","Poum",1963,NA
+"289","Province Nord","Poum",1969,NA
+"290","Province Nord","Poum",1976,NA
+"291","Province Nord","Poum",1983,816
+"292","Province Nord","Poum",1989,1038
+"293","Province Nord","Poum",1996,1320
+"294","Province Nord","Poum",2004,1390
+"295","Province Nord","Poum",2009,1388
+"296","Province Nord","Poum",2014,1463
+"297","Province Nord","Poum",2019,1435
+"298","Province Nord","Poya",1956,1066
+"299","Province Nord","Poya",1963,1019
+"300","Province Nord","Poya",1969,1281
+"301","Province Nord","Poya",1976,2915
+"302","Province Nord","Poya",1983,1961
+"303","Province Nord","Poya",1989,1862
+"304","Province Nord","Poya",1996,2522
+"305","Province Nord","Poya",2004,2600
+"306","Province Nord","Poya",2009,2648
+"307","Province Nord","Poya",2014,3036
+"308","Province Nord","Poya",2019,2802
+"309","Province Sud","Sarramea",1956,255
+"310","Province Sud","Sarramea",1963,307
+"311","Province Sud","Sarramea",1969,331
+"312","Province Sud","Sarramea",1976,357
+"313","Province Sud","Sarramea",1983,483
+"314","Province Sud","Sarramea",1989,400
+"315","Province Sud","Sarramea",1996,486
+"316","Province Sud","Sarramea",2004,610
+"317","Province Sud","Sarramea",2009,636
+"318","Province Sud","Sarramea",2014,584
+"319","Province Sud","Sarramea",2019,572
+"320","Province Sud","Thio",1956,1776
+"321","Province Sud","Thio",1963,2253
+"322","Province Sud","Thio",1969,3176
+"323","Province Sud","Thio",1976,2894
+"324","Province Sud","Thio",1983,3019
+"325","Province Sud","Thio",1989,2368
+"326","Province Sud","Thio",1996,2614
+"327","Province Sud","Thio",2004,2743
+"328","Province Sud","Thio",2009,2629
+"329","Province Sud","Thio",2014,2643
+"330","Province Sud","Thio",2019,2524
+"331","Province Nord","Touho",1956,1332
+"332","Province Nord","Touho",1963,1373
+"333","Province Nord","Touho",1969,1474
+"334","Province Nord","Touho",1976,1667
+"335","Province Nord","Touho",1983,1901
+"336","Province Nord","Touho",1989,1963
+"337","Province Nord","Touho",1996,2234
+"338","Province Nord","Touho",2004,2274
+"339","Province Nord","Touho",2009,2247
+"340","Province Nord","Touho",2014,2087
+"341","Province Nord","Touho",2019,2380
+"342","Province Nord","Voh",1956,1328
+"343","Province Nord","Voh",1963,1475
+"344","Province Nord","Voh",1969,1424
+"345","Province Nord","Voh",1976,1656
+"346","Province Nord","Voh",1983,1586
+"347","Province Nord","Voh",1989,1686
+"348","Province Nord","Voh",1996,1942
+"349","Province Nord","Voh",2004,2240
+"350","Province Nord","Voh",2009,2408
+"351","Province Nord","Voh",2014,3160
+"352","Province Nord","Voh",2019,2856
+"353","Province Sud","Yate",1956,1474
+"354","Province Sud","Yate",1963,925
+"355","Province Sud","Yate",1969,1113
+"356","Province Sud","Yate",1976,1365
+"357","Province Sud","Yate",1983,1387
+"358","Province Sud","Yate",1989,1408
+"359","Province Sud","Yate",1996,1554
+"360","Province Sud","Yate",2004,1843
+"361","Province Sud","Yate",2009,1881
+"362","Province Sud","Yate",2014,1747
+"363","Province Sud","Yate",2019,1667
