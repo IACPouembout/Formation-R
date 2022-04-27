@@ -1,0 +1,97 @@
+---
+title: "Cours_9_Rmarkdown"
+output: html_document
+date: "`r Sys.Date()`"
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Introduction
+
+Ceci est un document RMarkdown, qui mélange :
+
+- du texte balisé selon la syntaxe Markdown
+- des bouts de code R qui seront exécutés
+
+Le code R se présente de la manière suivante :
+
+```{r}
+summary(cars)
+```
+
+## Graphiques
+
+On peut aussi inclure des graphiques, par exemple :
+
+```{r}
+plot(pressure)
+```
+
+
+Ceci est du texte avec *de l'italique* et **du gras**.
+
+On peut définir des listes à puces :
+
+- premier élément
+- deuxième élément
+
+
+On peut définir des titres de différents niveaux en faisant débuter une ligne par un ou plusieurs # :
+
+# Titre de niveau 1
+
+## Titre de niveau 2
+
+### Titre de niveau 3
+
+
+La syntaxe Markdown permet d’autres mises en forme, comme la possibilité d’insérer des liens ou des images. Par exemple, le code suivant :
+
+[Exemple de lien](https://example.com)
+
+
+En plus du texte libre au format Markdown, un document R Markdown contient, comme son nom l’indique, du code R. Celui-ci est inclus dans des blocs (chunks) délimités par la syntaxe suivante :
+
+```{r}
+x <- 1:5
+```
+
+
+
+La première possibilité est de donner un nom au bloc. Celui-ci est indiqué directement après le r :
+
+{r nom_du_bloc}
+
+Il n’est pas obligatoire de nommer un bloc, mais cela peut être utile en cas d’erreur à la compilation, pour identifier le bloc ayant causé le problème. Attention, on ne peut pas avoir deux blocs avec le même nom.
+
+
+En plus d’un nom, on peut passer à un bloc une série d’options sous la forme option = valeur. Voici un exemple de bloc avec un nom et des options :
+
+```{r mon_bloc, echo = FALSE, warning = TRUE}
+x <- 1:5
+```
+
+
+Et un exemple de bloc non nommé avec des options :
+
+```{r echo = FALSE, warning = FALSE}
+x <- 1:5
+```
+
+
+
+Une des options utiles est l’option echo. Par défaut echo vaut TRUE, et le bloc de code R est inséré dans le document généré, de cette manière :
+
+```{r mon_bloc2 }
+x <- 1:5
+print(x)
+```
+
+Mais si on positionne l’option echo=FALSE, alors le code R n’est plus inséré dans le document, et seul le résultat est visible :
+
+```{r mon_bloc3, echo=FALSE}
+x <- 1:5
+print(x)
+```
