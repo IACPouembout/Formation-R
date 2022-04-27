@@ -40,6 +40,20 @@ preg <- tribble(
   "no",      20,    12
 )
 
+##########################################Exercice 2######################################
+#Le jeu de données relig_income présente la répartition des revenus par religion
+#quel est le problème de ce jeu de données ? Effectuez l'opération nécessaire
+relig_income
+
+##########################################Exercice 3######################################
+#Le jeu de données world_bank présente des indicateurs de la banque mondiale
+#quel est le problème de ce jeu de données ? Combien d'opérations sont nécessaires ?
+#Effectuez les opérations nécessaires pour restructurer ce jeu de données
+world_bank_pop
+
+
+tidyr::construction
+
 ##########################################Separate ######################################
 
 #separate permet de separer une seule colonne en 2, via un séparateur de type caractere
@@ -70,6 +84,10 @@ table5 %>%
 table5 %>% 
   unite(new, century, year, sep = "")
 
+
+
+
+
 ##########################################Gestion des valeurs manquantes ######################################
 
 stocks <- tibble(
@@ -88,5 +106,6 @@ stocks %>%
     cols = c(`2015`, `2016`), 
     names_to = "year", 
     values_to = "return", 
-    values_drop_na = TRUE
+    values_drop_na = TRUE)
+
 

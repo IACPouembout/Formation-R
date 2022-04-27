@@ -102,3 +102,14 @@ parse_number(d$adresse)
 
 
 str_extract(d$adresse,"[:digit:]")
+
+
+####################################################### Remplacer des motifs #######################################################
+
+str_replace_all(d$nom, "Mr", "M.")
+
+str_replace_all(
+  d$adresse,
+  c("avenue" = "Avenue", "ave" = "Avenue", "rue" = "Rue")
+)
+
