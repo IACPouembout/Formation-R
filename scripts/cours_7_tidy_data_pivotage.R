@@ -52,7 +52,6 @@ relig_income
 world_bank_pop
 
 
-tidyr::construction
 
 ##########################################Separate ######################################
 

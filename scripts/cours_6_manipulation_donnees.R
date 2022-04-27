@@ -92,15 +92,50 @@ rp19_ind <- mutate(rp19_ind,ANAIS=2019-AGEA,
 
 select(rp19_ind,ANAIS,ANAIS_cl)
 
+####################################################Exercice 1################################################################
 
-####################################################### Enchainer les opérations avec % #######################################################
+data("starwars")
+############Exo 1.1
+#Sélectionner la 1ere ligne de la table starwars
 
-# Les lignes de codes sont liées les unes aux autres tant que le % est utilisé
+#Sélectionner les 5 premières lignes de la table starwars.
+
+#Sélectionner le personnage avec la taille (height) la plus élevée
+
+
+###########Exo 1.2
+
+#Sélectionnez les personnages humains
+
+#Sélectionnez les personnages nés avant 150
+
+##########Exo 1.4
+
+#Sélectionnez toutes les colonnes de la table sauf les colonnes films et vehicles
+
+#Sélectionnez toutes les colonnes de la table dont les noms se terminent par “color”.
+
+#Dans la table star wars renommez la colonne mass en poids et la colonne height en taille.
+
+##########Exo 1.5
+
+##Dans la table starwars, la colonne height contient la height en centimetre
+#Créer une nouvelle variable height_m contenant la taille en mètres 
+#Sélectionner dans la table obtenue uniquement les deux colonnes height et height_m.
+
+
+####################################################### Enchainer les opérations avec le pipe %>% #######################################################
+
+# Les lignes de codes sont liées les unes aux autres tant que le %>% est utilisé
 rp19_ind%>%
   filter(PROV=="Sud")%>%
   select(ID,PROV,AGEA)%>%
   arrange(desc(AGEA))
 
+####################################################Exercice 2################################################################
+
+
+#En utilisant le pipe, sélectionnez les humains dans la stable starwars et triez-les selon leur date de naissance.
 
 
 ####################################################### Opérations groupées #######################################################
@@ -150,6 +185,12 @@ rp19_ind%>%
   group_by(PROV)%>%
   summarise(Age_moyen=mean(AGEA),
             Age_median=median(AGEA))
+
+#d'autres version de summarise existe, exemple summarise_if
+rp19_ind%>%
+  group_by(PROV)%>%
+  summarise_if(is.numeric,mean,na.rm=T)
+
 
 # n() pour compter les observations
 rp19_ind%>%
@@ -294,75 +335,59 @@ voitures %>% left_join(personnes)
 personnes %>% left_join(voitures)
 
 
+
 #Différents types de jointures
 personnes %>% inner_join(voitures)
 personnes %>% full_join(voitures)
 personnes %>% semi_join(voitures)
 personnes %>% anti_join(voitures)
 
+#si les noms des clé identifiants sont différents, on le précise
+voitures <- tibble(
+  voit = c("Twingo", "Ferrari", "Clio", "Lada", "208"),
+  vitesse = c("140", "280", "160", "85", "160")
+)
 
-################################################################EXERCICES######################################################################
+# by=c("x"="y") pour préciser les noms des identifiants
+voitures%>%left_join(personnes,by=c("voit"="voiture"))
+personnes %>% left_join(voitures,by=c("voiture"="voit"))
 
-superheroes_info <- read_delim(url("https://raw.githubusercontent.com/IACPouembout/Formation-R/main/data/superheroes_info.csv"))
+
+# on ne peut faire de jointures que si les identifiants sont de même type
+personnes <- tibble(
+  nom = c("Sylvie", "Sylvie", "Monique", "Gunter", "Rayan", "Rayan"),
+id=c("1","2","3","4","5","6")
+  )
+voitures <- tibble(
+  voiture = c("Twingo", "Ferrari", "Clio", "Lada", "208"),
+  vitesse = c("140", "280", "160", "85", "160"),
+  id=c(1,2,4,5,6)
+)
+
+
+personnes%>%left_join(voitures)
+
+class(personnes$id)
+class(voitures$id)
+
+#pour que cela fonctionne, on transforme l'id numérique en caractère
+voitures$id <- as.character(voitures$id)
+
+personnes%>%left_join(voitures)
+
+
+
+####################################################Exercice 3################################################################
 superheroes_stats <- read_delim(url("https://raw.githubusercontent.com/IACPouembout/Formation-R/main/data/superheroes_stats.csv"))
 
-
-####################################################Exercice 1################################################################
-
-############Exo 1.1
-#Sélectionner la 1ere ligne de la table superheroes_stats .
-
-#Sélectionner les 5 premières lignes de la table superheroes_info.
-
-#Sélectionner le super héros avec les meilleures statistiques totales
-
-
-###########Exo 1.2
-
-#Sélectionnez les super héros de DC
-
-#Sélectionnez les super héros apparus avant 2000.
-
-
-##########Exo 1.3
-
-#Sélectionnez les super héros dont les yeux sont verts, bleus, et bruns
-
-
-##########Exo 1.4
-
-#Sélectionnez les colonnes Identity et Alignment de la tablesuper_heroes info
-
-#Sélectionnez toutes les colonnes de la table super_heroes_info sauf les colonnes SkinColor et FirstAppearance
-
-#Sélectionnez toutes les colonnes de la table super_heroes_info dont les noms se terminent par “color”.
-
-#Dans la table superheroes_info, renommez la colonne Weight en poids et la colonne Height en taille.
-
-##########Exo 1.5
-
-##Dans la table superheroes_info, la colonne taille contient la taille en centimetre
-#Créer une nouvelle variable taille_m contenant la taille en mètres 
-#Sélectionner dans la table obtenue uniquement les deux colonnes taille et taille_m.
-
-
-
-####################################################Exercice 2################################################################
-
-#Réécrire le code de l’exercice précédent en utilisant le pipe %>%.
-
-#En utilisant le pipe, sélectionnez les super héros de DC  et triez-les selon leur apparition par ordre croissant.
-
-#Sélectionnez les super héros apparus entre 1960 et 1990, conservez les colonnes Year et Appearance 
-#créez une nouvelle variable anciennete mesurant l'âge du Super héros depuis son apparition.
-  
-####################################################Exercice 3################################################################
 
 #Affichez le nombre de super héros par année
 
 #Triez la table résultat selon le nombre croissant.
 
 #Calculer l'intelligence moyenne selon le bien/mal (variable Alignment)
+
+superheroes_info <- read_delim(url("https://raw.githubusercontent.com/IACPouembout/Formation-R/main/data/superheroes_info.csv"))
 
 #Calculer le nombre de super héros par éditeur pour chaque année
 
@@ -372,4 +397,4 @@ superheroes_stats <- read_delim(url("https://raw.githubusercontent.com/IACPouemb
 
 #Faire la jointure de la table superheroes_stats sur la table superheroes_info à l’aide de left_join.
 
-#À partir de la table résultat de exercice précédent, calculer l'intelligence moyenne des super héros gentils selon que leur identité soit secrète ou non
+#À partir de la table résultant de l'exercice précédent, calculer l'intelligence moyenne des super héros gentils selon que leur identité soit secrète ou non

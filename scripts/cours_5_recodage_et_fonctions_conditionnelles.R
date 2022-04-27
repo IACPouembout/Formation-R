@@ -12,8 +12,6 @@ data <- hdv2003
 #########Lire un fichier csv#######
 
 write.csv(data,here("data.csv"))
-write.csv(data,here("data.csv"))
-
 
 data <- read_csv(here("data.csv"))
 
@@ -94,7 +92,7 @@ f <- fct_recode(
   "Fraise" = "Pomme",
   "Ananas" = "Poire"
 )
-
+f
 
 
 data("hdv2003")
@@ -166,11 +164,8 @@ f <- c("Jan", "Jan", "Fev", "Juil")
 #> [1] Janvier Janvier Février Juillet
 #> Levels: Février Janvier Juillet
 
-####################################################################################################################
+#########################################interface graphique de recodage#################################################################
 
-
-
-##inteface graphique de recodage
 
 #on peux directement selectionner la variable a recoder et utiliser l'interface graphique de questionr dans "addins"
 

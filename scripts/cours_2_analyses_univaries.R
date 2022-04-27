@@ -52,8 +52,8 @@ summary(data$age)
 
 
 ##Il est possible de créer directement des nouvelles variables
-head(d$heures.tv, 10)
-d$minutes.tv <- d$heures.tv * 60
+head(data$heures.tv, 10)
+data$minutes.tv <- data$heures.tv * 60
 
 
 #################### 2.3 representations graphiques ###########################################################################################

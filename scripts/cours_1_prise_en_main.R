@@ -150,6 +150,9 @@ unique(diplome)
 #les valeurs manquantes sont notées NA (not applicable) 
 tailles <- c(156, 164, 197, NA, 173)
 
+#pour vérifier la présence de valeurs manquantes, on utilise is.na()
+is.na(tailles)
+
 #Les opérations sont impossibles sur les NA
 mean(tailles)
 
