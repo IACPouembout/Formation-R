@@ -1,15 +1,11 @@
 #######################Cours 6 : Manipulation de données ##############################################################################
-if(!require("devtools"))install.packages("devtools")
 if(!require("pacman"))install.packages("pacman")
-if(!require("Caledocensus"))devtools::install_github("https://github.com/IACPouembout/Caledocensus",force = TRUE,dependencies = FALSE)
 
 pacman::p_load("tidyverse",
                "here","questionr")
 
-library(Caledocensus)
-rp19_ind <- Caledocensus::rp19_ind
-
-
+rp19_ind <-read_delim(url("https://raw.githubusercontent.com/IACPouembout/Formation-R/main/data/rp19_ind.csv"))
+  
 #######################################################Les verbes de dplyr######################################################
 
 ####################################################### Slice #######################################################
@@ -40,7 +36,7 @@ slice_min(rp19_ind,AGER)
 filter(rp19_ind,GENRE=="Homme")
 
 #ou de plusieurs
-filter(rp19_ind,GENRE=="Homme" & AGER >95)
+filter(rp19_ind,GENRE=="Homme" & AGER >90)
 
 #ou d'un calcul
 filter(rp19_ind,AGER == median(AGER))
@@ -208,7 +204,7 @@ rp19_ind%>%
 
 
 
-evo_pop_communes <- Caledocensus::evo_pop_communes
+evo_pop_communes <-  read_delim(url("https://raw.githubusercontent.com/IACPouembout/Formation-R/main/data/evo_pop_communes.csv"))
 
 #lead = ligne suivante, lag = ligne précédente
 evo_pop_communes%>%
@@ -281,33 +277,6 @@ t1_t2 <- bind_cols(t1,t2)
 
 ###################################Jointures de tables########################
 
-rp19_log <- Caledocensus::rp19_log
-
-rp19_log%>%
-  select(IDLOG)
-
-rp19_ind%>%
-  select(IDLOG)
-
-
-#left_join pour les jointures de tables
-left_join(rp19_ind,rp19_log)%>%
-  select(IDLOG,AGEA,REFRI)
-
-#by= pour sélectionner la variable de jointure
-left_join(rp19_ind,rp19_log,by="IDLOG")%>%
-  select(IDLOG,AGEA,REFRI,PROV.x,PROV.y)
-
-#imaginons une clé qui ne porte pas le même non selon le jeu de données
-rp19_log2 <- rp19_log%>%rename("id"="IDLOG")
-
-#on le précise dans la fonction
-left_join(rp19_ind,rp19_log2,by=c("IDLOG"="id"))
-
-left_join(rp19_log2,rp19_ind,by=c("id"="IDLOG"))
-
-
-
 
 personnes <- tibble(
   nom = c("Sylvie", "Sylvie", "Monique", "Gunter", "Rayan", "Rayan"),
@@ -318,9 +287,12 @@ voitures <- tibble(
   vitesse = c("140", "280", "160", "85", "160")
 )
 
+
+#left_join pour les jointures de tables
 #La première colonne dépend de la 1ere table de jointure
 voitures %>% left_join(personnes)
 personnes %>% left_join(voitures)
+
 
 #Différents types de jointures
 personnes %>% inner_join(voitures)
@@ -331,8 +303,8 @@ personnes %>% anti_join(voitures)
 
 ################################################################EXERCICES######################################################################
 
-superheroes_info <- read_delim(here("data","superheroes_info.csv"))
-superheroes_stats <- read_delim(here("data","superheroes_stats.csv"))
+superheroes_info <- read_delim(url("https://raw.githubusercontent.com/IACPouembout/Formation-R/main/data/superheroes_info.csv"))
+superheroes_stats <- read_delim(url("https://raw.githubusercontent.com/IACPouembout/Formation-R/main/data/superheroes_stats.csv"))
 
 
 ####################################################Exercice 1################################################################

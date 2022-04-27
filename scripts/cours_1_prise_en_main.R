@@ -94,7 +94,7 @@ diplome
 
 faux <- FALSE
 
-# class() pour connaire le type d'un fecteur
+# class() pour connaire le type de vecteur
 
 class(poids)
 class(diplome)
@@ -141,9 +141,10 @@ sum(tailles)
 range(tailles)
 
 
+
+#filtrer les doublons
 diplome <- c("CAP", "Bac", "Bac+2", "CAP", "Bac+3")
 
-#filtrer les doublons 
 unique(diplome)
 
 #les valeurs manquantes sont notées NA (not applicable) 
