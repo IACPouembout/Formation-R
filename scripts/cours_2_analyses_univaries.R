@@ -93,7 +93,7 @@ freq(data$qualif, valid = FALSE, total = TRUE, sort = "dec")
 #################### 2.5 Représentations graphiques ############################################################################
 
 #repartition selon la croyance dans les classes sociales
-tab=table(data$cslo)
+tab=table(data$clso)
 
 #graphique en baton
 barplot(tab)

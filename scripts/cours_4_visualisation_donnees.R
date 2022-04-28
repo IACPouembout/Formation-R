@@ -294,25 +294,7 @@ rp69 <- filter(rp2018, departement %in% c("Rhône", "Loire"))
 #Représenter la répartition du pourcentage de propriétaires (variable proprio) 
 #selon la taille de la commune en classes (variable pop_cl) sous forme de boîtes à moustaches.
 
-
 #############################################Exercice 3 ############################################################
 
 #Représenter la répartition du nombre de communes selon la taille de la commune en classes sous la forme d’un diagramme en bâtons.
 
-#############################################Exercice 4 ############################################################
-
-#Faire un nuage de points croisant le pourcentage de sans diplôme et le pourcentage d’ouvriers. 
-
-
-#############################################Exercice 5 ############################################################
-
-#Représenter la répartition du pourcentage de propriétaires (variable proprio) selon la taille de la commune en classes (variable pop_cl) 
-#sous forme de boîtes à moustaches. Faire varier la couleur de remplissage (attribut fill) selon le département.
-
-
-#############################################Exercice 6 ############################################################
-
-#Faire le nuage de points croisant pourcentage de chômeurs (chom) et pourcentage de sans diplôme. 
-#Y ajouter les noms des communes correspondant (variable commune), en rouge et en taille 2.5
-#Faire varier la couleur selon le département (departement).
-#Essayer de n'afficher que le nom des communes ayant plus de 15% de chômage

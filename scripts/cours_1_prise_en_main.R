@@ -18,8 +18,8 @@
 ##########################  1.2 objets simples########################################################################
 
 #on peut stocker des chiffres dans des objets
+#alt+6 pour déclarer avec <-  ou alt + 8 
 x <- 2
-
 
 
 #et effectuer des opérations sur ces objets
@@ -82,9 +82,6 @@ imc
 #> [1] 240 268 512  24
 
 ###########################################################################################################################
-
-
-
 
 # les vecteurs peuvent aussi stocker du texte
 diplome <- c("CAP", "Bac", "Bac+2", "CAP", "Bac+3")
@@ -173,7 +170,6 @@ nb_personnes <- c(4, 2, 3, 2)
 
 #Calculer le revenu total de chaque ménage, 
 #puis diviser par le nombre de personnes pour obtenir le revenu par personne de chaque ménage.
-
 
 ######################################################Exercice 3################################################################
 

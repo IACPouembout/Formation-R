@@ -8,6 +8,11 @@ pacman::p_load("tidyverse","questionr","here","writexl","readxl","haven")
 data("hdv2003")
 
 data <- hdv2003
+#######Lire un fichier excel#####
+
+writexl::write_xlsx(data,here(  "data.xlsx"))
+
+data <- read_xlsx(here( "data.xlsx"))
 
 #########Lire un fichier csv#######
 
@@ -17,11 +22,6 @@ data <- read_csv(here("data.csv"))
 
 #On peut aussi passer par l'interface
 
-#######Lire un fichier excel#####
-
-writexl::write_xlsx(data,here(  "data.xlsx"))
-
-data <- read_xlsx(here( "data.xlsx"))
 
 
 rm(list = ls())

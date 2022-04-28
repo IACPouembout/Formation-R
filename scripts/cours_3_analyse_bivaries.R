@@ -40,6 +40,8 @@ tapply(d$age, d$sport, mean)
 
 #tests statistiques
 t.test(d$age ~ d$sport)
+
+
 ###Avant de faire un t.test, il faut vérifier la normalité des données
 
 hist(d_sport$age)
