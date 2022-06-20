@@ -32,7 +32,7 @@ pacman::p_load("gapminder","tidyverse")
 data("gapminder")
 
 #1 Calculez l'espérance de vie moyenne par continent en 1952, 1962, 1972, 1982,1992 et 2002
-#2 Représentez graphiquement le lien entre PIB/hab et espérance de vie en 1952 et en 2007, 
+#2 Représentez graphiquement, le lien entre PIB/hab et espérance de vie par pays en 1952 et en 2007, 
 #en colorant par continent et en faisant apparaître la taille de la population
 #3 Quel pays a le PIB/hab le plus élevé et le moins élevé par continent en 1952 et en 2007 ?
 
