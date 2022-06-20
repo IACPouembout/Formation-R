@@ -35,15 +35,14 @@ ggplot(rp,aes(x = dipl_sup, y = cadres)) +
 # en abscisse la part des diplômés du supérieur, en ordonnée la part des cadres
 # La couleur représente le département, la taille le nombre d'habitant, la transparence la part de maisons
 
-ggplot(rp) +
-  geom_point(
-    aes(x = dipl_sup, y = cadres, size = pop_tot,color=departement))
+ggplot(rp) +geom_point(aes(x = dipl_sup, y = cadres, size = pop_tot,color=departement))
 
 
 
 
 #On peut sauvegarder les graphiques avec ggsave
-ggsave(width = 13,height = 9,here("geom_point.png"))
+ggsave(width = 13,height = 9,here("data",  "geom_point.png"),dpi=300)
+
 
 ##########################################################Exemples de geom###########################################################
 
@@ -51,8 +50,7 @@ ggsave(width = 13,height = 9,here("geom_point.png"))
 
 ggplot(rp) +
   geom_text(
-    aes(x = dipl_sup, y = cadres, label = commune)
-  )
+    aes(x = dipl_sup, y = cadres, label = commune))
 
 #Si on veut changer une couleur sans la mettre en relation avec une variable
 #il faut le faire à l'extérieur de aes()
@@ -96,6 +94,7 @@ ggplot(rp) +
 
 # avec les graphiques en baton, on peut faire du simple comptage en ne designant qu'une seule variable
 ggplot(rp) + geom_bar(aes(x = departement))
+
 #dans ce cas, la variable manquante sera simplement l'effectif du jeu de donnees
 
 #on peut changer le sens de l'axe en le mettant en y
@@ -129,7 +128,7 @@ ggplot(rp) +
 ########################################Utiliser plusieurs sources de donnnées#####################################
 
 #On peut associer à différents geom des sources de données différentes. 
-#exemple ici, on va afficher uniquement le label des communes de plus de 5k habitants
+#exemple ici, on va afficher uniquement le label des communes de plus de 50k habitants
 com50 <- filter(rp, pop_tot >= 50000)
 
 
@@ -211,6 +210,7 @@ ggplot(rp) +
 # scale_color et scale_fill
 
 
+
 #variables quantitatives
 ggplot(rp) +
   geom_point(aes(x = dipl_sup, y = cadres, color = chom))
@@ -229,12 +229,13 @@ ggplot(rp) +
 
 ggplot(rp) +
   geom_point(aes(x = dipl_sup, y = cadres, color = chom)) +
-  scale_color_viridis_c("Taux de chômage", option = "plasma")
+  scale_color_viridis_c("Taux de chômage", option = "plasma",direction = -1)
 #distiller
 
 ggplot(rp) +
   geom_point(aes(x = dipl_sup, y = cadres, color = chom)) +
-  scale_color_distiller("Taux de chômage", palette = "Spectral")
+  scale_color_distiller("Taux de chômage",palette ="Spectral" )
+
 #variables qualitatives
 
 ggplot(rp) +
@@ -259,7 +260,13 @@ RColorBrewer::display.brewer.all()
 ggplot(rp) +
   geom_point(aes(x = dipl_sup, y = cadres, color = departement)) +
   scale_color_brewer("Département", palette = "Set1")+
-  theme_minimal()
+  theme_minimal()  
+
+ggplot(rp) +
+  geom_point(aes(x = dipl_sup, y = cadres, color = departement)) +
+  scale_color_brewer("Département", palette = "Set1")+
+  theme_economist()
+
 
 #labs
 ggplot(rp) +
@@ -288,13 +295,23 @@ rp69 <- filter(rp2018, departement %in% c("Rhône", "Loire"))
 
 #############################################Exercice 1 ############################################################
 
-#Faire un nuage de points croisant le pourcentage de sans diplôme (dipl_aucun) et le pourcentage d’ouvriers (ouvr).
+#Faire un nuage de points croisant le pourcentage de sans diplôme (dipl_aucun) 
+#et le pourcentage d’ouvriers (ouvr).
+ggplot(rp69)+
+  geom_point(aes(x=dipl_aucun,y=ouvr))
+
 
 #############################################Exercice 2 ############################################################
 #Représenter la répartition du pourcentage de propriétaires (variable proprio) 
 #selon la taille de la commune en classes (variable pop_cl) sous forme de boîtes à moustaches.
 
+ggplot(rp69,aes(x=pop_cl,y=proprio))+
+  geom_boxplot()
+
+
 #############################################Exercice 3 ############################################################
 
 #Représenter la répartition du nombre de communes selon la taille de la commune en classes sous la forme d’un diagramme en bâtons.
-
+ggplot(rp69, aes(x=pop_cl))+
+  geom_bar()+
+  facet_wrap(~departement)

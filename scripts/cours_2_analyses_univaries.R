@@ -28,8 +28,8 @@ data$age
 
 
 #On peut regarder les premières ou dernières valeurs de la variable
-head(data$age)
-tail(data$age)
+head(data$age,10)
+tail(data$age,10)
 
 
 #moyenne et mediane
@@ -53,7 +53,10 @@ summary(data$age)
 
 ##Il est possible de créer directement des nouvelles variables
 head(data$heures.tv, 10)
-data$minutes.tv <- data$heures.tv * 60
+
+
+data$minutes.tv <- data$heures.tv *60
+
 
 
 #################### 2.3 representations graphiques ###########################################################################################
@@ -81,11 +84,13 @@ hist(data$age, col = "skyblue",
 #la fonction table permet de faire un tri a plat
 table(data$qualif)
 
+
 #la fonction freq permet d'avoir egalement les proportions
 freq(data$qualif)
 
+
 #on peut trier par ordre décroissant
-freq(data$qualif, valid = FALSE, total = TRUE, sort = "dec")
+freq(data$qualif, valid = FALSE, total = TRUE, sort = "inc")
 
 
 
@@ -93,7 +98,7 @@ freq(data$qualif, valid = FALSE, total = TRUE, sort = "dec")
 #################### 2.5 Représentations graphiques ############################################################################
 
 #repartition selon la croyance dans les classes sociales
-tab=table(data$clso)
+tab <- table(data$clso)
 
 #graphique en baton
 barplot(tab)
@@ -112,13 +117,24 @@ dotchart(sort(tab))
 
 
 #On souhaite étudier la répartition du temps passé devant la télévision par les enquêtés (variable heures.tv). 
+min(data$heures.tv,na.rm = T)
+max(data$heures.tv,na.rm = T)
+mean(data$heures.tv,na.rm = T)
+median(data$heures.tv,na.rm = T)
+sd(data$heures.tv,na.rm = T)
+
+
 #Pour cela, affichez les principaux indicateurs de cette variable : valeur minimale, maximale, moyenne, médiane et écart-type. 
 #Représentez ensuite sa distribution par un histogramme en 10 classes.
-
+hist(data$heures.tv,breaks = 10)
 
 ####################################################Exercice 2################################################################
 #On s’intéresse maintenant à l’importance accordée par les enquêtés à leur travail (variable trav.imp). 
 #Faites un tri à plat des effectifs des modalités de cette variable avec la commande table
-#Faites un tri à plat affichant à la fois les effectifs et les pourcentages de chaque modalité. Y’a-t-il des valeurs manquantes ?
+table(data$trav.imp)
 
+#Faites un tri à plat affichant à la fois les effectifs et les pourcentages de chaque modalité. Y’a-t-il des valeurs manquantes ?
+freq(data$trav.imp)
 #Représentez graphiquement les effectifs des modalités à l’aide d’un graphique en barres.
+tab <- table(data$trav.imp)
+barplot(tab)

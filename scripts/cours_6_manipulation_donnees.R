@@ -33,13 +33,18 @@ slice_min(rp19_ind,AGER)
 ####################################################### Filter #######################################################
 
 #filtrer des donnees a partir d'une conditions
-filter(rp19_ind,GENRE=="Homme")
+hommes <-    filter(rp19_ind,GENRE=="Homme")
 
 #ou de plusieurs
 filter(rp19_ind,GENRE=="Homme" & AGER >90)
 
 #ou d'un calcul
-filter(rp19_ind,AGER == median(AGER))
+medan <- filter(rp19_ind,AGER == median(AGER))
+
+
+
+filter(rp19_ind, is.na(rp19_ind$ANNINS)==FALSE)
+
 
 
 ####################################################### Select et rename #######################################################
@@ -50,11 +55,12 @@ select(rp19_ind,COUPLE,GENRE)
 #ou de sélectionner toutes les variables sauf certaines, avec -, ou -c()
 select(rp19_ind,-COUPLE,-GENRE)
 
-select(rp19_ind,-c(COUPLE,-GENRE))
+select(rp19_ind,-c(COUPLE,GENRE))
 
 #il y a des verbes pour sélectionner des variables selon le debut ou la fin de leur nom
 select(rp19_ind, starts_with("CS"))
-select(rp19_ind, ends_with("RA"))
+
+select(rp19_ind,  - ends_with("RA"))
 
 #les : pour sélectionner les variables de_à
 select(rp19_ind, ILN:NAT)
@@ -70,17 +76,20 @@ rename(rp19_ind,  "Age atteint"=AGEA,"Age révolu"=AGER)
 arrange(rp19_ind,AGEA)
 
 #Selon plusieurs variables
-arrange(rp19_ind,AGEA,GENRE)
+tri <- arrange(rp19_ind,AGEA,GENRE)
 
 #ou par ordre décroissant
-arrange(rp19_ind,desc(AGEA),GENRE)
+tri <- arrange(rp19_ind,desc(GENRE),desc(AGEA))
 
 
 ####################################################### Mutate #######################################################
 
 # Mutate() pour créer de nouvelles variables
 rp19_ind <- mutate(rp19_ind,ANAIS=2019-AGEA)
+
 select(rp19_ind,AGEA,ANAIS)
+
+
 
 # On peut utiliser le recodage conditionnel vu lors du cours 4
 rp19_ind <- mutate(rp19_ind,ANAIS=2019-AGEA,
@@ -90,7 +99,6 @@ rp19_ind <- mutate(rp19_ind,ANAIS=2019-AGEA,
                                       ) )
 
 
-select(rp19_ind,ANAIS,ANAIS_cl)
 
 ####################################################Exercice 1################################################################
 
@@ -98,33 +106,63 @@ data("starwars")
 ############Exo 1.1
 #Sélectionner la 1ere ligne de la table starwars
 
+slice(starwars,1)
+
+
 #Sélectionner les 5 premières lignes de la table starwars.
 
+slice(starwars,1:5)
+slice_head(starwars,n=5)
+
+
 #Sélectionner le personnage avec la taille (height) la plus élevée
+
+slice_max(starwars,starwars$height)
 
 
 ###########Exo 1.2
 
 #Sélectionnez les personnages humains
+filter(starwars,species=="Human")
 
 #Sélectionnez les personnages nés avant 150
+filter(starwars,birth_year<150)
+
 
 ##########Exo 1.4
 
 #Sélectionnez toutes les colonnes de la table sauf les colonnes films et vehicles
 
+select(starwars,-films,-vehicles)
+select(starwars,-c(films,vehicles))
+select(starwars,-c(13,14))
+
+
 #Sélectionnez toutes les colonnes de la table dont les noms se terminent par “color”.
+
+select(starwars,ends_with("color"))
+
 
 #Dans la table star wars renommez la colonne mass en poids et la colonne height en taille.
 
+rename(starwars,"poids"=mass,"taille"=height)
+starwars <-  rename(starwars,"poids"=3,"taille"=2)
+
+
 ##########Exo 1.5
 
-##Dans la table starwars, la colonne height contient la height en centimetre
-#Créer une nouvelle variable height_m contenant la taille en mètres 
-#Sélectionner dans la table obtenue uniquement les deux colonnes height et height_m.
+##Dans la table starwars, la colonne height contient la taille en centimetre
 
+
+#Créer une nouvelle variable height_m contenant la taille en mètres
+starwars <- mutate(starwars,height_m=height/100)
+
+#Sélectionner dans la table obtenue uniquement les deux colonnes height et height_m.
+select(starwars,height,height_m)
 
 ####################################################### Enchainer les opérations avec le pipe %>% #######################################################
+
+  
 
 # Les lignes de codes sont liées les unes aux autres tant que le %>% est utilisé
 rp19_ind%>%
@@ -137,11 +175,16 @@ rp19_ind%>%
 
 #En utilisant le pipe, sélectionnez les humains dans la stable starwars et triez-les selon leur date de naissance.
 
+starwars%>%
+  filter(species=="Human")%>%
+  arrange(birth_year)
+
 
 ####################################################### Opérations groupées #######################################################
 
 rp19_ind%>%
-  group_by(PROV)
+  group_by(PROV)%>%
+  select(PROV)
 
 #sélection de la 1ere ligne de chaque province
 rp19_ind%>%
@@ -154,12 +197,21 @@ rp19_ind%>%
   slice_max(AGEA)%>%
   select(PROV,AGEA)
 
+
 #calcul de l'âge moyen à l'échelle des provinces
+
+rp19_ind%>%
+  group_by(PROV)%>%
+  mutate(Age_moyen=mean(AGER))%>%
+  select(PROV,Age_moyen)
+
+
 rp19_ind%>%
   group_by(PROV)%>%
   mutate(Age_moyen=mean(AGER))%>%
   select(PROV,Age_moyen)%>%
   unique()
+
 
 #recodage conditionnel basé sur une opération groupée
 rp19_ind%>%
@@ -167,6 +219,8 @@ rp19_ind%>%
   mutate(Age_moyen=mean(AGER),
          Age_cl=ifelse(AGEA>Age_moyen,"Âge supérieur à l'âge moyen","Âge inférieur à l'âge moyen"))%>%
   select(PROV,AGEA,Age_cl,Age_moyen)
+
+
 
 #filtrage basé sur une opération groupée
 rp19_ind%>%
@@ -181,10 +235,14 @@ rp19_ind%>%
 
 
 #operation qui écrase les autres variables sauf les variables de groupement
-rp19_ind%>%
+age_moyen <-   rp19_ind%>%
   group_by(PROV)%>%
   summarise(Age_moyen=mean(AGEA),
             Age_median=median(AGEA))
+
+
+
+
 
 #d'autres version de summarise existe, exemple summarise_if
 rp19_ind%>%
@@ -196,6 +254,8 @@ rp19_ind%>%
 rp19_ind%>%
   group_by(PROV)%>%
   summarise(n=n())
+
+
 
 # ou count
 rp19_ind%>%
@@ -211,17 +271,27 @@ rp19_ind%>%
   summarise(Age_moyen=mean(AGEA),
             Age_median=median(AGEA))
 
+
+
 #par province et par genre
 rp19_ind%>%
   group_by(PROV,GENRE)%>%
   summarise(n=n())
 
+
+rp19_ind%>%
+  group_by(PROV)%>%
+  count(PROV,GENRE)
+
+
+
+
 #filtrage de l'age moyen max
 rp19_ind%>%
   group_by(PROV,ILN)%>%
   summarise(Age_moyen=mean(AGEA))%>%
-  group_by(PROV)%>%
   slice_max(Age_moyen)
+
 
 
 #ungroup pour dégrouper
@@ -230,6 +300,7 @@ rp19_ind%>%
   summarise(Age_moyen=mean(AGEA))%>%
 ungroup()%>%
     slice_max(Age_moyen)
+
 
 
 ####################################################### Autres fonctions #######################################################
@@ -254,13 +325,25 @@ evo_pop_communes%>%
          Taux_croissance = (Pop-Pop_prev)/Pop_prev)
 
 
+evo_pop_communes%>%
+  arrange(Commune,Annee)%>%
+  mutate(Pop_prev=lag(Pop),
+         Taux_croissance = (Pop-Pop_prev)/Pop_prev)%>%
+  slice_max(Taux_croissance)
+
+
+
+
 # n() = compter des lignes, n_distinct()= compter les lignes différentes
 rp19_ind%>%
   group_by(PROV)%>%
   summarise(n=n(),nlog=n_distinct(IDLOG))
 
+
+
 rp19_ind%>%
   distinct(IDLOG)
+
 
 #relocate pour modifier l'emplacement d'une variable, la replace au début par défaut
 rp19_ind%>%
@@ -269,7 +352,11 @@ rp19_ind%>%
 
 #mais il est possible de choisir l'emplacement exact
 rp19_ind%>%
-  relocate(PROV,.after = IDLOG)
+  relocate(PROV,.after = 3)
+
+rp19_ind%>%
+  relocate(PROV,.before = 3)
+
 
 ####################################################### Tables multiples #######################################################
 
@@ -323,6 +410,8 @@ personnes <- tibble(
   nom = c("Sylvie", "Sylvie", "Monique", "Gunter", "Rayan", "Rayan"),
   voiture = c("Twingo", "Ferrari", "Scenic", "Lada", "Twingo", "Clio")
 )
+
+
 voitures <- tibble(
   voiture = c("Twingo", "Ferrari", "Clio", "Lada", "208"),
   vitesse = c("140", "280", "160", "85", "160")
@@ -339,14 +428,15 @@ personnes %>% left_join(voitures)
 #Différents types de jointures
 personnes %>% inner_join(voitures)
 personnes %>% full_join(voitures)
-personnes %>% semi_join(voitures)
 personnes %>% anti_join(voitures)
-
+voitures%>%anti_join(personnes)
 #si les noms des clé identifiants sont différents, on le précise
 voitures <- tibble(
   voit = c("Twingo", "Ferrari", "Clio", "Lada", "208"),
   vitesse = c("140", "280", "160", "85", "160")
 )
+
+
 
 # by=c("x"="y") pour préciser les noms des identifiants
 voitures%>%left_join(personnes,by=c("voit"="voiture"))
@@ -358,6 +448,8 @@ personnes <- tibble(
   nom = c("Sylvie", "Sylvie", "Monique", "Gunter", "Rayan", "Rayan"),
 id=c("1","2","3","4","5","6")
   )
+
+
 voitures <- tibble(
   voiture = c("Twingo", "Ferrari", "Clio", "Lada", "208"),
   vitesse = c("140", "280", "160", "85", "160"),
@@ -379,22 +471,68 @@ personnes%>%left_join(voitures)
 
 ####################################################Exercice 3################################################################
 superheroes_stats <- read_delim(url("https://raw.githubusercontent.com/IACPouembout/Formation-R/main/data/superheroes_stats.csv"))
+superheroes_info <- read_delim(url("https://raw.githubusercontent.com/IACPouembout/Formation-R/main/data/superheroes_info.csv"))
 
 
 #Affichez le nombre de super héros par année
 
+superheroes_info%>%
+  group_by(Year)%>%
+  summarise(n=n())
+
+
 #Triez la table résultat selon le nombre croissant.
+
+superheroes_info%>%
+  group_by(Year)%>%
+  summarise(pop=n())%>%
+  arrange(pop)
+
+
+superheroes_info%>%
+  group_by(Year)%>%
+  summarise(n=n())%>%
+  arrange(desc(n))
+
+
 
 #Calculer l'intelligence moyenne selon le bien/mal (variable Alignment)
 
-superheroes_info <- read_delim(url("https://raw.githubusercontent.com/IACPouembout/Formation-R/main/data/superheroes_info.csv"))
+superheroes_stats%>%
+  group_by(Alignment)%>%
+  summarise(intelligence_moyenne=mean(Intelligence,na.rm=T))
+
 
 #Calculer le nombre de super héros par éditeur pour chaque année
 
+superheroes_info%>%
+  group_by(Year,Publisher)%>%
+  summarise(n=n())
+
+superheroes_info%>%
+  group_by(Year)%>%
+ count(Publisher)
+superheroes_info%>%
+  count(Year,Publisher)
+
 #Ne conserver, pour chaque année, que le super héros ayant fait le plus d'apparitions au total
+
+superheroes_info%>%
+  group_by(Year)%>%
+  slice_max(Appearances)%>%
+  select(Year,Name)%>%
+  unique()
+
+
+
 
 ####################################################Exercice 4################################################################
 
 #Faire la jointure de la table superheroes_stats sur la table superheroes_info à l’aide de left_join.
 
 #À partir de la table résultant de l'exercice précédent, calculer l'intelligence moyenne des super héros gentils selon que leur identité soit secrète ou non
+superheroes_info%>%select(Name,Identity)%>%unique()%>%
+  left_join(superheroes_stats,by="Name")%>%
+  filter(Alignment=="good")%>%
+  group_by(Identity)%>%
+  summarise(intelligence_moyenne=mean(Intelligence,na.rm=T))

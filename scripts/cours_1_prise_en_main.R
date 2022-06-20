@@ -21,17 +21,15 @@
 #alt+6 pour déclarer avec <-  ou alt + 8 
 x <- 2
 
-
 #et effectuer des opérations sur ces objets
 x+4
-
-
 
 y <- 5
 
 #et avec ces objets
 resultat <- x + y
 resultat
+
 
 ###On peut aussi stocker du texte 
 
@@ -42,6 +40,8 @@ chien
 #on ne peut pas mélanger des objets de natures différentes !
 
 chien + x
+
+
 
 #########################  1.3 Vecteurs########################################################################################
 
@@ -57,6 +57,8 @@ taille5 <- 173
 #on peut aussi stocker plusieurs valeurs dans un objet, celui-ci devient un vecteur
 
 tailles <- c(156, 164, 197, 147, 173)
+
+
 
 #les opérations sur les vecteurs se font sur l'ensemble des valeurs stockées
 tailles_m <- tailles / 100
@@ -74,12 +76,17 @@ imc
 #Construire le vecteur x suivant :
 
 #> [1] 120 134 256  12
-
+x <- c(120, 134 ,256,  12)
 
 #Utiliser ce vecteur x pour générer les deux vecteurs suivants :
 
 #> [1] 220 234 356 112
 #> [1] 240 268 512  24
+
+x+100
+
+x*2
+
 
 ###########################################################################################################################
 
@@ -97,18 +104,23 @@ class(poids)
 class(diplome)
 class(faux)
 class(as.factor(diplome))
+as.factor(diplome)
+
 
 #exemple de coercicion quand on mélange des vecteurs de différents types
 
 x <- 1
 y <- "2"
 z <- c(x,y)
+z
+
 class(z)
 
 
 # pour sélectionner une valeur particulière, on utilise les []
 
 diplome[2]
+
 
 #on peut aussi choisir de sélectionner toutes les valeurs sauf certaines avec -c()
 
@@ -136,8 +148,6 @@ sum(tailles)
 
 #étendue
 range(tailles)
-
-
 
 #filtrer les doublons
 diplome <- c("CAP", "Bac", "Bac+2", "CAP", "Bac+3")
@@ -169,17 +179,31 @@ nb_personnes <- c(4, 2, 3, 2)
 
 
 #Calculer le revenu total de chaque ménage, 
+
+revenu_total <- conjoint1 + conjoint2
+
 #puis diviser par le nombre de personnes pour obtenir le revenu par personne de chaque ménage.
+
+
+revenu_individuel <- (revenu_total)/nb_personnes
 
 ######################################################Exercice 3################################################################
 
 #Calculer le revenu minimum et maximum parmi ceux du premier conjoint.
 
 conjoint1 <- c(1200, 1180, 1750, 2100)
+min(conjoint1)
+max(conjoint1)
 
 #Recommencer avec les revenus suivants, parmi lesquels une non réponse
 
 conjoint1 <- c(1200, 1180, 1750, NA)
+  
+min(conjoint1, na.rm = T )
+max(conjoint1, na.rm = T )
+range(conjoint1,na.rm = T)
+range(conjoint1,na.rm = T)
+
 
 
 ######################################################Exercice 4################################################################
@@ -192,9 +216,11 @@ temperature <- c(3.4, 4.8, 8.4, 11.4, 15.8, 19.4, 22.2, 21.6, 17.6, 13.4, 7.6, 4
 precipitations <- c(47.2, 44.1, 50.4, 74.9, 90.8, 75.6, 63.7, 62, 87.5, 98.6, 81.9, 55.2)
 
 #Calculer la température moyenne sur l’année.
+mean(temperature)
+
 
 #Calculer la quantité totale de précipitations sur l’année.
-
+sum(precipitations)
 
 
 
@@ -203,6 +229,7 @@ precipitations <- c(47.2, 44.1, 50.4, 74.9, 90.8, 75.6, 63.7, 62, 87.5, 98.6, 81
 cumsum(precipitations)
 
 diff(temperature)
+
 
 ######################################################Exercice 5################################################################
 
@@ -214,9 +241,9 @@ sport <- c(18, 11, 14, 10, 8, 12)
 
 
 #Calculer la moyenne des élèves de la classe en anglais.
-
+mean(anglais)
 #Calculer la moyenne générale de chaque élève (la moyenne des ses notes dans les trois matières).
-
+(maths+anglais+sport)/3
 
 
 #Essayez de comprendre le résultat des deux fonctions suivantes (vous pouvez vous aider de la page d’aide de ces fonctions) :
