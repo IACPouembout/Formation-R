@@ -15,7 +15,6 @@ d <- tibble(
 
 
 
-
 ####################################################### Concaténation #######################################################
 #paste pour concatener 2 caracteres, sep= pour choisir le separateur
 
@@ -76,9 +75,8 @@ str_subset(d$adresse, "Libération")
 bananas <- c("banana", "Banana", "BANANA")
 str_detect(bananas, "banana")
 
+#regex et ignore_case pour ignorer la case
 str_detect(bananas, regex("banana", ignore_case = TRUE))
-
-str_detect("\nX\n", regex(".X.", dotall = TRUE))
 
 
 ####################################################### Extraire des motifs #######################################################
@@ -86,35 +84,80 @@ x <- c("apple", "banana", "pear")
 
 str_extract(x, "an")
 
+#avec le . , on extrait le motif et les lettres avant et après, ne fonctionne pas si pas de lettre avant
 str_extract(x, ".a.")
+#un . apres = le a et la lettre qui suit
+str_extract(x, "a.")
 
-dot <- "\\."
-
-writeLines(dot)
+#comment détecter un point du coup ?
+#il faut utiliser les \\ pour mentionner explicitement une ponctuation
 
 str_extract(c("abc", "a.c", "bef"), "a\\.c")
 
+# deux \\ = un seul \
 x <- "a\\b"
-writeLines(x)
 
+#pour mentionner explicitement \\, il faut utiliser \\\\\
 str_extract(x, "\\\\")
 
+#extraire des nombres
+#l'expression [:digit:] permet d'extraire des chiffres allant de 1 à 9
+str_extract(d$adresse,"[:digit:]")
 
-str_extract(d$adresse, "^\\d+")
+#les expressions régulières sont basés sur le standard POSIX 1003.2
+#– [:alnum:] : tous les caractères alphanumériques.
+#– [:alpha:] : les caractères alphabétiques uniquement, en majuscule et en minuscule.
+#– [:blank:] : des caractères « blancs », types espace ou tabulation
+#– [:cntrl:] : un caractère de contrôle
+#– [:digit:] : un chiffre de 0 à 9
+#– [:graph:] : un caractère graphique, c’est-à-dire alphanumérique ou de ponctuation.
+#– [:lower:] : un caractère en minuscule
+#– [:print:] : un caractère imprimable
+#– [:punct:] : une ponctuation : !  » # $ % & ‘ ( ) * + , – . / : ; < = > ? @ [ \ ] ^ _ ` { | } ~.
+#– [:space:] : un espace (tabulation, nouvelle ligne, retour chariot…)
+#– [:upper:] : un caractère en majuscule
+#– [:xdigit:] : un caractère du système hexadécimal : 0 1 2 3 4 5 6 7 8 9 A B C D E F a b c d e f.
+
+# on peut utiliser série de quantifieurs, pour déterminer la position ou la répétition d’un caractère de substitution :
+#  . : renvoie à n’importe quel caractère
+#^ : le caractère suivant est au début d’une chaine
+#$ : le caractère suivant est en fin de chaine
+#– ? : le caractère précédent est optionnel, et ne devra être trouvé qu’une seule fois
+#– * : le caractère sera trouvé zéro fois ou plus
+#– + : le caractère sera trouvé une fois ou plus
+#– {n} : le caractère sera trouvé n fois
+#– {n,} : le caractère sera trouvé au moins n fois
+#{n,m} : le caractère sera trouvé entre n et m fois.
+
+
+#si on veut extraire des nombres, il faut utiliser l'expression régulière \\d+
+str_extract(d$adresse, "\\d+")
+
+#la fonction parse_number remplit également ce role
+parse_number(d$adresse)
+
+#avec str_extract_all on peut extraire plus d'un motif
+
+str_extract_all(d$adresse,"[:digit:]")
+
 str_extract_all(d$adresse, "\\d+")
+
+
+#la fonction extract permet de créer directement une variable qui contiendra le motif extrait
+#ici l'expression régulière ^\\d+ (.*?) va extraire le motif qui suit le nombre
 
 d %>% extract(adresse, "type_rue", "^\\d+ (.*?) ", remove = FALSE)
 
-parse_number(d$adresse)
-
-
-str_extract(d$adresse,"[:digit:]")
 
 
 ####################################################### Remplacer des motifs #######################################################
 
 str_replace_all(d$nom, "Mr", "M.")
+#on remarque ici que "mr" étant en majuscule, il n'a pas été remplacé par M.
+#mais si on ignore la case avec regex, on remplace les Mr majuscules et minuscules
+str_replace_all(d$nom, regex("Mr",ignore_case = T), "M.")
 
+#on peut mentionner plusieurs remplacements
 str_replace_all(
   d$adresse,
   c("avenue" = "Avenue", "ave" = "Avenue", "rue" = "Rue")

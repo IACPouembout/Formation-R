@@ -14,6 +14,8 @@ tidy4a <- table4a %>%
   pivot_longer(c(`1999`, `2000`), names_to = "year", values_to = "cases")
 tidy4b <- table4b %>% 
   pivot_longer(c(`1999`, `2000`), names_to = "year", values_to = "population")
+
+
 left_join(tidy4a, tidy4b)
 
 
@@ -72,6 +74,23 @@ table3 %>%
 table3 %>% 
   separate(year, into = c("century", "year"), sep = 2)
 
+
+
+##########################Separate_rows###############################################
+
+
+df <- tibble(
+  eleve = c("Félicien Machin", "Raymonde Bidule", "Martial Truc"),
+  classe = c("6e", "5e", "6e"),
+  notes = c("5,16,11", "15", "11,17")
+)
+
+df%>%
+  separate_rows(notes)
+
+
+
+
 ##########################################Unite ######################################
 
 #Unite est la fonction inverse de separate
@@ -99,6 +118,32 @@ stocks <- tibble(
 stocks %>% 
   pivot_wider(names_from = year, values_from = return)
 
+#on peut compléter les valeurs manquantes explicites avec values_fill
+stocks %>% 
+  pivot_wider(names_from = year, values_from = return,values_fill = list(return = 0),names_expand =T) 
+
+#les valeurs manquantes implicites peuvent être complétées avec la fonction complete()
+stocks%>%  complete(year,qtr,fill = list(return=0))%>%
+  pivot_wider(names_from = year, values_from = return) 
+
+
+#il est important de vérifier que les valeurs manquantes sont complétées lorsqu'il y en a, cela peut avoir des conséquences sur les résultats des opérations
+
+df <- tibble(
+  eleve = c("Alain", "Alain", "Barnabé", "Chantal"),
+  matiere = c("Maths", "Français", "Maths", "Français"),
+  note = c(16, 9, 17, 11)
+)
+
+df %>% group_by(eleve)%>%summarise(note_moyenne=mean(note,na.rm=T))
+
+df %>% complete(eleve,matiere, fill = list(note = 0))%>%
+  group_by(eleve)%>%summarise(note_moyenne=mean(note,na.rm=T))
+
+
+
+
+#value_drop_na pour omettre les valeurs manquantes
 stocks %>% 
   pivot_wider(names_from = year, values_from = return) %>% 
   pivot_longer(
@@ -107,4 +152,12 @@ stocks %>%
     values_to = "return", 
     values_drop_na = TRUE)
 
+
+stocks %>% 
+  pivot_wider(names_from = year, values_from = return) %>% 
+  pivot_longer(
+    cols = c(`2015`, `2016`), 
+    names_to = "year", 
+    values_to = "return", 
+    values_drop_na = FALSE)
 
