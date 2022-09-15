@@ -25,7 +25,7 @@ paste(d$adresse, d$ville, sep = " - ")
 #paste0 pour une concatenation sans espace
 paste0(d$adresse, d$ville)
 
-#on peut aussi concatener l'ensemble des catacteres d'un vecteur
+#on peut aussi concatener l'ensemble des caracteres d'un vecteur
 paste(d$ville, collapse = ", ")
 ####################################################### Convertir en majuscule/minuscule #######################################################
 
@@ -64,6 +64,8 @@ d%>%
 
 #str_sub(vecteur,debut,fin)
 str_sub(d$ville, 1, 3)
+#nombres négatifs pour partir de la fin
+str_sub(d$ville,-1,-3)
 
 
 #######################################################Détecter des motifs #######################################################
@@ -96,7 +98,7 @@ str_extract(c("abc", "a.c", "bef"), "a\\.c")
 
 # deux \\ = un seul \
 x <- "a\\b"
-
+cat(x)
 #pour mentionner explicitement \\, il faut utiliser \\\\\
 str_extract(x, "\\\\")
 
@@ -163,15 +165,154 @@ str_replace_all(
   c("avenue" = "Avenue", "ave" = "Avenue", "rue" = "Rue")
 )
 
-####################################################### Exercices #######################################################
+####################################################### Supprimer des espaces #######################################################
 
+
+d <- tibble(
+  nom = c("        mr Félicien Machin", "mme Raymonde Bidule        ", "   m. Martial          Truc      ", "     mme Huguette Chose"))
+
+str_trim(d$nom)
+
+str_squish(d$nom)
+
+
+####################################################### Exercices #######################################################
+#########Exercice 1#######################
 d <- tibble(
   nom = c("M. rené Bézigue", "Mme Paulette fouchin", "Mme yvonne duluc", "M. Jean-Yves Pernoud"),
   naissance = c("18/04/1937 Vesoul", "En 1947 à Grenoble (38)", "Le 5 mars 1931 à Bar-le-Duc", "Marseille, juin 1938"),
   profession = c("Ouvrier agric", "ouvrière qualifiée", "Institutrice", "Exploitant agric")
 )
 
-# 1 Capitalisez les noms des personnes avec str_to_title 
+# 1 Capitalisez les noms des personnes 
 # 2 Dans la variable profession, remplacer toutes les occurrences de l’abbréviation “agric” par “agricole” 
-# 3 À l’aide de str_detect, identifier les personnes de catégorie professionnelle “Ouvrier”. Indication : pensez au modificateur ignore_case.
-# 4 À l’aide de case_when et de str_detect, créer une nouvelle variable sexe identifiant le sexe de chaque personne en fonction de la présence de M. ou de Mme dans son nom.
+# 3 À l’aide de str_detect, identifier les personnes de catégorie professionnelle “Ouvrier”.
+# 4 créer une nouvelle variable sexe identifiant le sexe de chaque personne en fonction de la présence de M. ou de Mme dans son nom.
+#########Exercice 2#######################
+pacman::p_load(gapminder)
+data("gapminder")
+
+# 1 Quelle est la longueur moyenne des noms de pays ?
+# 2 Extraire les première et dernière lettre de chaque nom de pays. Et représenter graphiquement leur distribution respective.
+# 3 Quel pays a le mot and dans son nom ?
+# 4 Supprimer toutes les occurences de “,” et “.” dans les noms de pays.
+# 5 Raccourcir les noms de pays plus long en arrêtant au 11ème caractère et en ajoutant un point. Par exemple, United States becomes United Stat..
+# 6 Convertir les noms de pays en minuscule et trouve le caractère le plus fréquent dans les noms de pays. Est-ce similaire dans les différents continents ?
+# 7 Maintenant que vous savez quelle est la lettre la plus fréquente, quel est le pays qui la contient le plus de fois ?
+  
+####################################### Gestion des dates avec lubdridate############################################
+pacman::p_load("lubridate")
+
+today()
+now()
+
+#Il existe 3 classes de date/temps dans R: Date, POSIXct (calendar time) et POSIXlt (local time)
+class(today())
+class(now())
+
+#on peut extraire des informations sur les dates avec les fonctions de lubridate
+#il faut tenir compte de l'ordre année/mois/jour (fonction ymd dans ce cas) 
+ymd("06 02 04")
+ymd("20060204")
+ymd("2006 2 4")
+ymd("2006 : 2///04")
+ymd(060204)  
+
+#si les dates sont de type jour/mois/année, fonction dmy
+dmy("4 2 06")
+dmy("04 02 2006")
+
+#si les dates sont de type mois/jour/année, fonction mdy
+mdy("02 04 06")
+mdy(020406)  
+
+
+#toutes les combinaisons sont possibles
+myd("06 02 04")
+dym("06 02 04")
+
+
+#on peut créer nos propres dates avec make_date
+make_date(year = 2020, month = 7, day = 13) 
+
+#il s'agit de données de classe Date
+is.Date(make_date(year = 2020))
+is.POSIXct(make_date(year = 2020))
+
+
+d1 <- make_date(year = 2020, month = 7, day = 13) 
+d2 <- make_date(year = 2019, month = 7, day = 13) 
+
+#on peut faire des opérations de calculs
+d1-d2 # différence en jour
+
+as.numeric(d1-d2) # différence en jour
+interval(d2,d1)/days(1)
+as.period(interval(d2, d1), unit = "days")
+
+
+as.numeric(d1-d2)/30.5 # différence en mois
+interval(d2,d1)/months(1)
+as.period(interval(d2, d1), unit = "months")
+
+
+as.numeric(d1-d2)/365.25 # en année
+interval(d2,d1)/years(1)
+as.period(interval(d2, d1), unit = "year")
+
+
+#on peut arrondir avec floor_date
+
+floor_date(d1,unit = "month")
+floor_date(d1,unit = "year")
+
+
+#on peut passer en format POSIXct avec make_dattime
+make_datetime(year = 2020, month = 7, day = 13, 
+              hour = 10, min = 30, sec = 45, tz = "Europe/Zurich")
+
+make_datetime(year = 2020, month = 7, day = 13, 
+              hour = 10, min = 30, sec = 45, tz = "Pacific/Guadalcanal")
+
+
+is.Date(make_datetime(year = 2020))
+is.POSIXct(make_datetime(year = 2020))
+
+
+#on peut extraire des élements de date avec les fonctions correspondantes
+year(today())
+month(today())
+week(today())
+day(today())
+wday(today())
+wday(today(),label = T)
+wday(today(),label = T,locale = "eng")
+hour(now())
+minute(now())
+second(now())
+
+
+Sys.timezone() 
+
+#######################################Exercice##############################################
+
+#1 utilisez les fonctions appropriées pour extraire chacune des dates
+d1 <- "January 20, 2020"
+d2 <- "2020-Apr-01"
+d3 <- "11-Nov-2020"
+d4 <- c("July 13 (1969)", "August 23 (1972)", "July 1 (1975)")
+                 # Date: 
+d5 <- "08/12/10" # Oct 12, 2008
+d6 <- d5         # Aug 12, 2010
+d7 <- d5         # Oct 08, 2012
+
+
+pacman::p_load("ds4psy")
+data("fame")
+# 2 le jeu de données fame contient les dates de naissances (DOB) et de décès (DOD) de personnes célèbres
+# convertissez ces deux variables au format date
+
+# 3 Créez deux variables indiquant pour l'une le jour (de lundi à dimanche) de leur naissance et l'autre de leur décès
+
+# 4 Créez une variable mesurant leur âge en jour et une autre en année
+# attention à la différence de traitement entre les personnes décédées et celles encore en vie

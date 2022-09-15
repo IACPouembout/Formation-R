@@ -1,11 +1,16 @@
 ---
 title: "Cours_9_Rmarkdown"
-output: html_document
+output:
+  pdf_document: default
+  html_document: default
 date: "`r Sys.Date()`"
 ---
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
+#pacman::p_load("tinytex")
+#tinytex::install_tinytex()
+
 ```
 
 ## Introduction
