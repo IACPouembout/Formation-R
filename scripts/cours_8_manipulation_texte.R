@@ -27,6 +27,7 @@ paste0(d$adresse, d$ville)
 
 #on peut aussi concatener l'ensemble des caracteres d'un vecteur
 paste(d$ville, collapse = ", ")
+
 ####################################################### Convertir en majuscule/minuscule #######################################################
 
 #package stringr
@@ -64,8 +65,9 @@ d%>%
 
 #str_sub(vecteur,debut,fin)
 str_sub(d$ville, 1, 3)
+
 #nombres négatifs pour partir de la fin
-str_sub(d$ville,-1,-3)
+str_sub(d$ville,-3)
 
 
 #######################################################Détecter des motifs #######################################################
@@ -162,8 +164,8 @@ str_replace_all(d$nom, regex("Mr",ignore_case = T), "M.")
 #on peut mentionner plusieurs remplacements
 str_replace_all(
   d$adresse,
-  c("avenue" = "Avenue", "ave" = "Avenue", "rue" = "Rue")
-)
+  regex(c( "avenue" = "Avenue", "ave" = "Avenue", "rue" = "Rue"),ignore_case = T))
+
 
 ####################################################### Supprimer des espaces #######################################################
 
@@ -171,9 +173,9 @@ str_replace_all(
 d <- tibble(
   nom = c("        mr Félicien Machin", "mme Raymonde Bidule        ", "   m. Martial          Truc      ", "     mme Huguette Chose"))
 
-str_trim(d$nom)
+d$nom2 <- str_trim(d$nom)
 
-str_squish(d$nom)
+d$nom3 <-  str_squish(d$nom)
 
 
 ####################################################### Exercices #######################################################
@@ -188,6 +190,8 @@ d <- tibble(
 # 2 Dans la variable profession, remplacer toutes les occurrences de l’abbréviation “agric” par “agricole” 
 # 3 À l’aide de str_detect, identifier les personnes de catégorie professionnelle “Ouvrier”.
 # 4 créer une nouvelle variable sexe identifiant le sexe de chaque personne en fonction de la présence de M. ou de Mme dans son nom.
+
+
 #########Exercice 2#######################
 pacman::p_load(gapminder)
 data("gapminder")
