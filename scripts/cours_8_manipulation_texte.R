@@ -189,15 +189,45 @@ d <- tibble(
 # 1 Capitalisez les noms des personnes 
 # 2 Dans la variable profession, remplacer toutes les occurrences de l’abbréviation “agric” par “agricole” 
 # 3 À l’aide de str_detect, identifier les personnes de catégorie professionnelle “Ouvrier”.
+
+d1 <- d%>%
+  mutate(nom=str_to_title(nom),
+         profession=str_replace_all(profession,"agric","agricole"),
+         ouvrier=str_detect(profession,regex("ouvr",ignore_case = T)),
+         
+         sexe=case_when(str_detect(nom ,regex("M\\.",ignore_case = T))==T~"Homme",
+                        str_detect(nom,regex("Mme",ignore_case = T))==T~"Femme"),
+         sexe2=ifelse(str_detect(nom ,regex("M\\.",ignore_case = T))==T,"Homme","Femme"))
+      
 # 4 créer une nouvelle variable sexe identifiant le sexe de chaque personne en fonction de la présence de M. ou de Mme dans son nom.
 
 
 #########Exercice 2#######################
-pacman::p_load(gapminder)
+pacman::p_load(gapminder,tidyverse)
 data("gapminder")
 
+df <- gapminder%>%
+  select(country,continent)%>%
+  unique()
+df%>%
+  summarise(longueur_m=mean(str_length(country)))
 # 1 Quelle est la longueur moyenne des noms de pays ?
 # 2 Extraire les première et dernière lettre de chaque nom de pays. Et représenter graphiquement leur distribution respective.
+df <- df%>%
+  mutate(premiere_lettre=str_sub(country,0,1),
+         derniere_lettre=str_sub(country,-1)
+         )
+df2 <-  df%>%
+  pivot_longer(3:4,names_to = "type_lettre",values_to = "lettre")
+
+comptage_lettre <- df2%>%
+  count(type_lettre,lettre)
+
+ggplot(comptage_lettre,aes(x = n,y=fct_reorder(lettre,n)))+
+  geom_bar(stat = "identity")+
+  facet_wrap(~type_lettre,scales = "free")
+
+
 # 3 Quel pays a le mot and dans son nom ?
 # 4 Supprimer toutes les occurences de “,” et “.” dans les noms de pays.
 # 5 Raccourcir les noms de pays plus long en arrêtant au 11ème caractère et en ajoutant un point. Par exemple, United States becomes United Stat..
