@@ -79,8 +79,7 @@ x <- c(1, 20, 21, 15.5, 14, 12, 8)
 
 #Écrire le test qui indique si les éléments du vecteur sont strictement supérieurs à 15.
 #Utiliser ce test pour extraire du vecteur les éléments correspondants.
-x>15
-x[x>15]
+
 
 
 ####################################################Exercice 1.2################################################################
@@ -89,8 +88,6 @@ x[x>15]
 x <- runif(1000, 0, 10)
 
 #Combien d'element sont compris entre 2 et 4 ?
-obj <- x[x>=2 & x <=4] 
-length(obj)
 
 
 
@@ -175,7 +172,6 @@ f <- c("Jan", "Jan", "Fev", "Juil")
 #> [1] Janvier Janvier Février Juillet
 #> Levels: Février Janvier Juillet
 
-f <- fct_recode(f,"Janvier"="Jan","Février"="Fev","Juillet"="Juil")
 
 
 #########################################interface graphique de recodage#################################################################
@@ -198,22 +194,6 @@ irec(hdv2003$qualif)
 #> Ni croyance ni appartenance 399 20.0 20.0
 #> Rejet                        93  4.7  4.7
 #> NSP                          40  2.0  2.0
-
-irec(hdv2003$relig)
-
-
-
-## Recodage de hdv2003$relig en hdv2003$relig_rec
-hdv2003$relig_rec <- hdv2003$relig %>%
-  fct_recode(
-    "Pratiquant" = "Pratiquant regulier",
-    "Pratiquant" = "Pratiquant occasionnel",
-    "Appartenance" = "Appartenance sans pratique",
-    "NSP" = "NSP ou NVPR"
-  )
-
-
-freq(hdv2003$relig_rec)
 
 
 
@@ -269,20 +249,6 @@ iorder(hdv2003$qualif)
 #> Enseignement superieur                  441 22.0 23.4
 #> NA    
 
-irec(hdv2003$nivetud)
-
-hdv2003$nivetud_rec <- hdv2003$nivetud %>%
-  fct_recode(
-    "Études primaires" = "A arrete ses etudes, avant la derniere annee d'etudes primaires",
-    "Études primaires" = "Derniere annee d'etudes primaires",
-    "Enseignement technique ou professionnel" = "Enseignement technique ou professionnel court",
-    "Enseignement technique ou professionnel" = "Enseignement technique ou professionnel long",
-    "Enseignement superieur" = "Enseignement superieur y compris technique superieur"
-  )
-
-
-freq(hdv2003$nivetud_rec)
-
 
 #Toujours à l’aide de l’interface graphique, réordonner les modalités de cette variable recodée pour obtenir le tri à plat suivant :
 
@@ -294,13 +260,6 @@ freq(hdv2003$nivetud_rec)
 #> Études primaires                        427 21.3 22.6
 #> N'a jamais fait d'etudes                 39  2.0  2.1
 #> NA                                      112  5.6   NA
-iorder(hdv2003$nivetud_rec)
-
-hdv2003$nivetud_rec <- hdv2003$nivetud_rec %>%
-  fct_relevel(
-    "Enseignement superieur", "Enseignement technique ou professionnel",
-    "2eme cycle", "1er cycle", "Études primaires", "N'a jamais fait d'etudes"
-  )
 
 
 
@@ -310,12 +269,6 @@ hdv2003$nivetud_rec <- hdv2003$nivetud_rec %>%
 
 #À l’aide de la fonction fct_reorder, trier les modalités de la variable relig du jeu de données hdv2003 selon leur âge médian.
 #Produisez la boxplot correspondante
-hdv2003$reglig_rec <- fct_reorder(hdv2003$relig,hdv2003$age,median)
-
-boxplot(hdv2003$rel)
-
-ggplot()+
-  geom_boxplot(data=hdv2003,aes(x=reglig_rec,y=age))
 
 
 #######################################Recodage conditionnel avec ifelse#############################################################
@@ -348,9 +301,6 @@ freq(hdv2003$statut)
 #> Autre        1971 98.6 98.6
 #> Cinéma et BD   29  1.5  1.5
 
-hdv2003$cinema_bd <- ifelse(hdv2003$cinema=="Oui" & hdv2003$lecture.bd=="Oui","Cinéma et BD","Autre")
-
-freq(hdv2003$cinema_bd)
 
 
 #########################################Recodage conditionnel avec case_when########################################################
@@ -427,14 +377,6 @@ icut(hdv2003$age)
   #> Femme ayant plus de 2 frères et soeurs  546 27.3 27.3
   #> Homme ayant plus de 2 frères et soeurs  453 22.7 22.7
 
-hdv2003$statut <- case_when(hdv2003$sexe=="Femme" & hdv2003$freres.soeurs>2~"Femme ayant plus de 2 frères et soeurs",
-                            hdv2003$sexe=="Homme" & hdv2003$freres.soeurs>2~"Homme ayant plus de 2 frères et soeurs",
-                            TRUE~"Autre"
-                            
-                            )
-
-freq(hdv2003$statut)
-
 
 
 
@@ -458,37 +400,11 @@ freq(hdv2003$statut)
   #> 
   #> 
 
-hdv2003$statut <- case_when(hdv2003$sexe=="Homme" & hdv2003$age>40 & 
-                              hdv2003$trav.satisf=="Satisfaction"~ "Homme de plus de 40 ans satisfait par son travail",
-                            hdv2003$sexe=="Homme" & hdv2003$age>30~"Homme de plus de 30 ans",
-                            hdv2003$sexe=="Femme" & hdv2003$bricol=="Oui"| hdv2003$sexe=="Femme" & hdv2003$sport=="Oui"~"Femme pratiquant le sport ou le bricolage",
-                            TRUE~"Autre" )
-
-
-
-freq(hdv2003$statut)
 
 #####Exo 3.4
 
 #Decoupez la variable heure.tv en 4 classes
 #représentez l'age selon la classe du nbre d'heures passées devant la tv avec un boxplot
 
-hdv2003$heures.tv_cl <- cut(hdv2003$heures.tv,breaks = 4,include.lowest = T)
-## Recodage de hdv2003$heures.tv_cl en hdv2003$heures.tv_cl_rec
-hdv2003$heures.tv_cl_rec <- hdv2003$heures.tv_cl %>%
-  fct_recode(
-    "Moins de 3h de tv" = "[-0.012,3]",
-    
-    "De 3 à 6h" = "(3,6]",
-    "De 6 à 9h" = "(6,9]",
-    "De 9 à 12h" = "(9,12]"
-  ) %>%
-  fct_explicit_na("Manquant")
 
-
-hdv2003$heures.tv_cl_rec <- fct_reorder()
-
-
-ggplot(hdv2003,aes(x=fct_reorder(heures.tv_cl_rec,heures.tv)  ,y=age))+
-  geom_boxplot()
 

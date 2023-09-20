@@ -42,9 +42,6 @@ table2 %>%
 table4a %>% 
   pivot_longer(c("1999", "2000"), names_to = "year", values_to = "cases")
 
-table4a%>%
-  pivot_longer(c(2,3))
-
 
 #sur l'exemple ci-dessous, combien y a t-il de variables ? Quelle opération effectuer ? 
 preg <- tribble(
@@ -53,19 +50,14 @@ preg <- tribble(
   "no",      20,    12
 )
 
-preg%>%
-  pivot_longer(male:female,names_to = "sex",values_to = "n")
 
 
 
 ##########################################Exercice 2######################################
 #Le jeu de données relig_income présente la répartition des revenus par religion
 #quel est le problème de ce jeu de données ? Effectuez l'opération nécessaire
-relig_income
 data("relig_income")
 
-relig_income%>%
-  pivot_longer(2:11,names_to = "income",values_to = "pop")
 
 
 ##########################################Exercice 3######################################
@@ -74,9 +66,7 @@ relig_income%>%
 #Effectuez les opérations nécessaires pour restructurer ce jeu de données
 
 data("world_bank_pop")
-world_bank_pop%>%
-  pivot_longer(3:20,names_to = "year")%>%
-  pivot_wider(names_from = indicator,values_from = value)
+
 
 ##########################################Separate ######################################
 

@@ -297,21 +297,15 @@ rp69 <- filter(rp2018, departement %in% c("Rhône", "Loire"))
 
 #Faire un nuage de points croisant le pourcentage de sans diplôme (dipl_aucun) 
 #et le pourcentage d’ouvriers (ouvr).
-ggplot(rp69)+
-  geom_point(aes(x=dipl_aucun,y=ouvr))
 
 
 #############################################Exercice 2 ############################################################
 #Représenter la répartition du pourcentage de propriétaires (variable proprio) 
 #selon la taille de la commune en classes (variable pop_cl) sous forme de boîtes à moustaches.
 
-ggplot(rp69,aes(x=pop_cl,y=proprio))+
-  geom_boxplot()
+
 
 
 #############################################Exercice 3 ############################################################
 
 #Représenter la répartition du nombre de communes selon la taille de la commune en classes sous la forme d’un diagramme en bâtons.
-ggplot(rp69, aes(x=pop_cl))+
-  geom_bar()+
-  facet_wrap(~departement)

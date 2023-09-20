@@ -24,7 +24,6 @@ chisq.residuals(tab)
 #representation graphique 
 mosaicplot(tab)
 
-mosaicplot(tab, las = 2, shade = TRUE)
 
 #################### 3.2 Croisement d'une variables qualitative et d'une variable quantitative ########################################
 
@@ -85,37 +84,31 @@ data("hdv2003")
 #Dans le jeu de données `hdv2003`, faire le tableau croisé entre la catégorie socio-professionnelle (variable `qualif`) 
 #et le fait de croire ou non en l'existence des classes sociales (variable `clso`). Identifier la variable indépendante et la variable dépendante, 
 #et calculer les pourcentages ligne ou colonne. Interpréter le résultat.
-tab <- table(hdv2003$qualif,hdv2003$clso)
 
-lprop(tab)
-cprop(tab)
 
 #Identifier la variable indépendante et la variable dépendante, et calculer les pourcentages ligne ou colonne. Interpréter le résultat.
 
 
 #Faire un test du χ². Peut-on rejeter l’hypothèse d’indépendance ?
 
-chisq.test(tab)
 
 #Représenter ce tableau croisé sous la forme d’un mosaicplot en colorant les cases selon les résidus du test du χ².
 
-mosaicplot(tab,shade = T)
 
 ####################################################Exercice 2################################################################
 #Sur le jeu de données hdv2003, faire le boxplot qui croise le nombre d’heures passées devant la télévision (variable heures.tv) 
 #avec le statut d’occupation (variable occup).
 
-boxplot(hdv2003$heures.tv~hdv2003$occup,col="brown")
 
 #Calculer la durée moyenne devant la télévision en fonction du statut d’occupation à l’aide de tapply.
 
-tapply(hdv2003$heures.tv,hdv2003$occup,mean,na.rm=T)
+
 
 ####################################################Exercice 3################################################################
 data("rp2018")
 #Sur le jeu de données rp2018, représenter le nuage de points croisant le pourcentage de personnes sans diplôme (variable dipl_aucun) 
 #et le pourcentage de propriétaires (variable proprio).
-plot(rp2018$dipl_aucun,rp2018$proprio)
+
 
 #Calculer le coefficient de corrélation linéaire correspondant.
-cor(rp2018$dipl_aucun,rp2018$proprio)
+

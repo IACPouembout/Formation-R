@@ -117,24 +117,17 @@ dotchart(sort(tab))
 
 
 #On souhaite étudier la répartition du temps passé devant la télévision par les enquêtés (variable heures.tv). 
-min(data$heures.tv,na.rm = T)
-max(data$heures.tv,na.rm = T)
-mean(data$heures.tv,na.rm = T)
-median(data$heures.tv,na.rm = T)
-sd(data$heures.tv,na.rm = T)
-
 
 #Pour cela, affichez les principaux indicateurs de cette variable : valeur minimale, maximale, moyenne, médiane et écart-type. 
 #Représentez ensuite sa distribution par un histogramme en 10 classes.
-hist(data$heures.tv,breaks = 10)
+
 
 ####################################################Exercice 2################################################################
 #On s’intéresse maintenant à l’importance accordée par les enquêtés à leur travail (variable trav.imp). 
 #Faites un tri à plat des effectifs des modalités de cette variable avec la commande table
-table(data$trav.imp)
+
 
 #Faites un tri à plat affichant à la fois les effectifs et les pourcentages de chaque modalité. Y’a-t-il des valeurs manquantes ?
-freq(data$trav.imp)
+
 #Représentez graphiquement les effectifs des modalités à l’aide d’un graphique en barres.
-tab <- table(data$trav.imp)
-barplot(tab)
+

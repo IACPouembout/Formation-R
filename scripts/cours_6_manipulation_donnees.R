@@ -106,47 +106,28 @@ data("starwars")
 ############Exo 1.1
 #Sélectionner la 1ere ligne de la table starwars
 
-slice(starwars,1)
-
 
 #Sélectionner les 5 premières lignes de la table starwars.
-
-slice(starwars,1:5)
-slice_head(starwars,n=5)
 
 
 #Sélectionner le personnage avec la taille (height) la plus élevée
 
-slice_max(starwars,starwars$height)
-
-
 ###########Exo 1.2
 
 #Sélectionnez les personnages humains
-filter(starwars,species=="Human")
 
 #Sélectionnez les personnages nés avant 150
-filter(starwars,birth_year<150)
 
 
 ##########Exo 1.4
 
 #Sélectionnez toutes les colonnes de la table sauf les colonnes films et vehicles
 
-select(starwars,-films,-vehicles)
-select(starwars,-c(films,vehicles))
-select(starwars,-c(13,14))
-
 
 #Sélectionnez toutes les colonnes de la table dont les noms se terminent par “color”.
 
-select(starwars,ends_with("color"))
-
 
 #Dans la table star wars renommez la colonne mass en poids et la colonne height en taille.
-
-rename(starwars,"poids"=mass,"taille"=height)
-starwars <-  rename(starwars,"poids"=3,"taille"=2)
 
 
 ##########Exo 1.5
@@ -155,10 +136,8 @@ starwars <-  rename(starwars,"poids"=3,"taille"=2)
 
 
 #Créer une nouvelle variable height_m contenant la taille en mètres
-starwars <- mutate(starwars,height_m=height/100)
 
 #Sélectionner dans la table obtenue uniquement les deux colonnes height et height_m.
-select(starwars,height,height_m)
 
 ####################################################### Enchainer les opérations avec le pipe %>% #######################################################
 
@@ -174,10 +153,6 @@ rp19_ind%>%
 
 
 #En utilisant le pipe, sélectionnez les humains dans la stable starwars et triez-les selon leur date de naissance.
-
-starwars%>%
-  filter(species=="Human")%>%
-  arrange(birth_year)
 
 
 ####################################################### Opérations groupées #######################################################
@@ -476,52 +451,18 @@ superheroes_info <- read_delim(url("https://raw.githubusercontent.com/IACPouembo
 
 #Affichez le nombre de super héros par année
 
-superheroes_info%>%
-  group_by(Year)%>%
-  summarise(n=n())
-
 
 #Triez la table résultat selon le nombre croissant.
-
-superheroes_info%>%
-  group_by(Year)%>%
-  summarise(pop=n())%>%
-  arrange(pop)
-
-
-superheroes_info%>%
-  group_by(Year)%>%
-  summarise(n=n())%>%
-  arrange(desc(n))
-
 
 
 #Calculer l'intelligence moyenne selon le bien/mal (variable Alignment)
 
-superheroes_stats%>%
-  group_by(Alignment)%>%
-  summarise(intelligence_moyenne=mean(Intelligence,na.rm=T))
-
 
 #Calculer le nombre de super héros par éditeur pour chaque année
 
-superheroes_info%>%
-  group_by(Year,Publisher)%>%
-  summarise(n=n())
-
-superheroes_info%>%
-  group_by(Year)%>%
- count(Publisher)
-superheroes_info%>%
-  count(Year,Publisher)
 
 #Ne conserver, pour chaque année, que le super héros ayant fait le plus d'apparitions au total
 
-superheroes_info%>%
-  group_by(Year)%>%
-  slice_max(Appearances)%>%
-  select(Year,Name)%>%
-  unique()
 
 
 
@@ -531,8 +472,4 @@ superheroes_info%>%
 #Faire la jointure de la table superheroes_stats sur la table superheroes_info à l’aide de left_join.
 
 #À partir de la table résultant de l'exercice précédent, calculer l'intelligence moyenne des super héros gentils selon que leur identité soit secrète ou non
-superheroes_info%>%select(Name,Identity)%>%unique()%>%
-  left_join(superheroes_stats,by="Name")%>%
-  filter(Alignment=="good")%>%
-  group_by(Identity)%>%
-  summarise(intelligence_moyenne=mean(Intelligence,na.rm=T))
+

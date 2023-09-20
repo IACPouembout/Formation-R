@@ -9,9 +9,11 @@ bibliography: references.bib
 ---
 
 ```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = TRUE)
+knitr::opts_chunk$set(echo = FALSE)
 #pacman::p_load("tinytex")
 #tinytex::install_tinytex()
+
+
 pacman::p_load(knitr,kableExtra,flextable,gt,tidyverse)
 
 
@@ -65,7 +67,7 @@ x <- 1:5
 
 La première possibilité est de donner un nom au bloc. Celui-ci est indiqué directement après le r :
 
-{r nom_du_bloc}
+[{r nom_du_bloc}]{.underline}
 
 Il n'est pas obligatoire de nommer un bloc, mais cela peut être utile en cas d'erreur à la compilation, pour identifier le bloc ayant causé le problème. Attention, on ne peut pas avoir deux blocs avec le même nom.
 
@@ -79,6 +81,7 @@ Et un exemple de bloc non nommé avec des options :
 
 ```{r echo = FALSE, warning = FALSE}
 x <- 1:5
+
 
 ```
 
@@ -100,7 +103,7 @@ print(x)
 
 On peux sauvegarder nos résultats dans des objets et les invoquer directement dans l'éditeur de texte
 
-```{r mon_bloc4}
+```{r mon_bloc4, echo=FALSE}
 
 tailles <- c(160,170,200,157,168,190)
 poids <-  c(45, 59, 110, 44, 88, 100)
@@ -160,8 +163,10 @@ On peux ajouter des sauts de page avec la commande "\\newpage"
 
 \newpage
 
-En nommant un fichier .bib contenant vos références dans les metadata, vous pouvez citez vos références avec le \@, par exemple @R-base
+En nommant un fichier .bib contenant vos références dans les metadata, vous pouvez citez vos références avec le \@, par exemple @R-base @bouard2010strategies
 
-Plus d'éléments de personnalisations disponibles via l'extension [bookdown](https://bookdown.org/yihui/bookdown/)
+Plus d'éléments de personnalisations disponibles via l'extension [bookdown](https://bookdown.org/yihui/bookdown/) [^1]
+
+[^1]: truc machin
 
 ## References
