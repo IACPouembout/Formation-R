@@ -5,47 +5,22 @@ data('movies')
  
 #1 Créez une nouvelle variable présentant la note (rating) centrée (dont on a soustrait la moyenne)
 
-movies <- mutate(movies,rating_cent=rating-mean(rating,na.rm=T))
-movies$rating_cent <-  movies$rating - mean(movies$rating)
 
 #2 Créez un nouveau dataframe ne contenant que les films sortis après 2000
 
-movies_2000 <- filter(movies,year>2000)
-
 #3 Utilisez select pour ne garder que les variables title, year, budget, length, rating et votes, de 3 façons différentes 
-
-select(movies,title, year, budget, length, rating, votes)
-
-movies%>%
-  select(c(1:6,8))
-
-movies%>%
-  select(-c(7:27))
 
 
 #4 Groupez les films par année et calculez le budget moyen par année
 
-budget_moyen <- movies%>%
-  group_by(year)%>%
-  summarise(budget_moyen=mean(budget,na.rm=T))
-
-
 #5 Représentez graphiquement cette évolution
-options(scipen = 999)
-ggplot(budget_moyen,aes(x=year,y=budget_moyen))+
-  geom_line()
+
 
 #6 Avec le pipe, enchainez les opérations suivantes : 
     #filtrez les films sortis après 1990,
     #sélectionnez les mêmes variables que prédemment, avec les variables mpaa, Action et Drama
     #Groupez par mpaa et Action
     #Obtenez la note moyenne
-
-note_moyenne <-  movies%>%
-  filter(year>1990)%>%
-  select(1:6,mpaa,Action,Drama)%>%
-  group_by(mpaa,Action)%>%
-  summarise(note_moyenne=mean(rating,na.rm=T))
 
 
 
@@ -54,40 +29,16 @@ pokemon <- read_delim(url("https://raw.githubusercontent.com/mwdray/datasets/mas
 pokedex <- read_delim(url("https://raw.githubusercontent.com/mwdray/datasets/master/pokedex_simple.csv"))
 
 #1 Joignez les tables pokemon et pokedex pour obtenir des informations supplémentaires
-pokemon2 <- inner_join(pokedex,pokemon)
 
 #2 Comptez le nombre de pokemon par type1
-pokemon2%>%
-  count(type1)
 
 
 #3 Créez une variable "Double type" séparant les pokemon entre ceux qui n'ont qu'un seul type, et ceux qui en ont 2
-pokemon2 <- pokemon2%>%
-  mutate(double_type=ifelse(is.na(type2)==TRUE,"Un seul type","Deux types"))
-
 
 
 #4 Comptez le nombre de pokemon par double type et type1, quel type1 comprend la part la plus importante de double type ?
-pokemon2%>%
-  count(type1,double_type)%>%
-  group_by(type1)%>%
-  mutate(percent=n/sum(n,na.rm = T))%>%
-filter(double_type=="Deux types")%>%
-    arrange(desc(percent))
-
-
-
-
 
 #5 Calculez les statistiques de combat moyenne, médianes, minimum et maximum selon le double type
-
-pokemon2%>%
-  group_by(double_type)%>%
-  summarise(combat_mean=mean(combat_power,na.rm=T),
-            combat_median=median(combat_power,na.rm = T),
-            combat_min=min(combat_power,na.rm = T),
-            combat_max=max(combat_power,na.rm = T))
-
 
 
 ######################Exercice 3##############################
@@ -97,34 +48,11 @@ pacman::p_load("gapminder","tidyverse")
 data("gapminder")
 
 #1 Calculez l'espérance de vie moyenne par continent en 1952, 1962, 1972, 1982,1992 et 2002
-gapminder%>%
-  filter(year %in% c(1952, 1962, 1972, 1982,1992, 2002))%>%
-  group_by(year,continent)%>%
-  summarise(life_exp_mean=mean(lifeExp,na.rm=T))
-
-
 
 #2 Représentez graphiquement, le lien entre PIB/hab et espérance de vie par pays en 1952 et en 2007, 
 #en colorant par continent et en faisant apparaître la taille de la population
-gap2 <-   gapminder%>%filter(year %in% c(1952,2007))
-ggplot(gap2,aes(x=gdpPercap,y=lifeExp,color=continent,size=pop))+
-  geom_point()+
-  facet_wrap(~year,scales = "free_x")+
-  theme_bw()+
-  scale_color_brewer(palette ="Set2")
-
 
 #3 Quel pays a le PIB/hab le plus élevé et le moins élevé par continent en 1952 et en 2007 ?
-
-gapminder%>%
-  filter(year%in% c(1952,2007))%>%
-  group_by(year,continent)%>%
-  slice_max(gdpPercap)
-
-gapminder%>%
-  filter(year%in% c(1952,2007))%>%
-  group_by(year,continent)%>%
-  slice_min(gdpPercap)
 
 
 ######################Exercice 4##############################

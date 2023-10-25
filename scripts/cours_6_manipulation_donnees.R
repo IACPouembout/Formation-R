@@ -103,7 +103,7 @@ rp19_ind <- mutate(rp19_ind,ANAIS=2019-AGEA,
 ####################################################Exercice 1################################################################
 
 data("starwars")
-############Exo 1.1
+############Exercice 1.1
 #Sélectionner la 1ere ligne de la table starwars
 
 
@@ -112,14 +112,14 @@ data("starwars")
 
 #Sélectionner le personnage avec la taille (height) la plus élevée
 
-###########Exo 1.2
+############################################Exercice 1.2############################################
 
 #Sélectionnez les personnages humains
 
 #Sélectionnez les personnages nés avant 150
 
 
-##########Exo 1.4
+############################################Exercice 1.4############################################
 
 #Sélectionnez toutes les colonnes de la table sauf les colonnes films et vehicles
 
@@ -130,7 +130,7 @@ data("starwars")
 #Dans la table star wars renommez la colonne mass en poids et la colonne height en taille.
 
 
-##########Exo 1.5
+###########################################Exercice 1.5#######################################################
 
 ##Dans la table starwars, la colonne height contient la taille en centimetre
 

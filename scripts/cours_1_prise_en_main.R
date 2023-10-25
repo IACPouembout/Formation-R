@@ -18,8 +18,11 @@
 ##########################  1.2 objets simples########################################################################
 
 #on peut stocker des chiffres dans des objets
-#alt+6 pour déclarer avec <-  ou alt + 8 
+#ctrl+shift+6 pour déclarer avec <-  
 x <- 2
+
+#ctrl+entree pour voir le resultat d'un objet
+x
 
 #et effectuer des opérations sur ces objets
 x+4
@@ -42,10 +45,6 @@ chien
 chien + x
 
 
-
-#########################  1.3 Vecteurs########################################################################################
-
-
 #On peut créer plusieurs objets et effectuer des opérations
 taille1 <- 156
 taille2 <- 164
@@ -53,6 +52,8 @@ taille3 <- 197
 taille4 <- 147
 taille5 <- 173
 (taille1 + taille2 + taille3 + taille4 + taille5) / 5
+
+#########################  1.3 Vecteurs########################################################################################
 
 #on peut aussi stocker plusieurs valeurs dans un objet, celui-ci devient un vecteur
 
@@ -84,6 +85,25 @@ imc
 
 
 
+######################################################Exercice 2################################################################
+
+
+#On a demandé à 4 ménages le revenu des deux conjoints, et le nombre de personnes du ménage :
+
+conjoint1 <- c(1200, 1180, 1750, 2100)
+conjoint2 <- c(1450, 1870, 1690, 0)
+nb_personnes <- c(4, 2, 3, 2)
+
+
+#Calculer le revenu total de chaque ménage, 
+
+
+
+#puis diviser par le nombre de personnes pour obtenir le revenu par personne de chaque ménage.
+
+
+
+
 ###########################################################################################################################
 
 # les vecteurs peuvent aussi stocker du texte
@@ -92,7 +112,7 @@ diplome
 
 #ou etre de type logical
 
-faux <- FALSE
+faux <- FALSE 
 
 # class() pour connaire le type de vecteur
 
@@ -161,25 +181,6 @@ mean(tailles)
 
 #Il faut indiquer à R de les ignorer avec na.rm=TRUE
 mean(tailles,na.rm = TRUE)
-
-
-
-######################################################Exercice 2################################################################
-
-
-#On a demandé à 4 ménages le revenu des deux conjoints, et le nombre de personnes du ménage :
-
-conjoint1 <- c(1200, 1180, 1750, 2100)
-conjoint2 <- c(1450, 1870, 1690, 0)
-nb_personnes <- c(4, 2, 3, 2)
-
-
-#Calculer le revenu total de chaque ménage, 
-
-
-
-#puis diviser par le nombre de personnes pour obtenir le revenu par personne de chaque ménage.
-
 
 
 
