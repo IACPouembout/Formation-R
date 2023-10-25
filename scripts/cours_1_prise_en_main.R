@@ -123,7 +123,7 @@ class(as.factor(diplome))
 as.factor(diplome)
 
 
-#exemple de coercicion quand on mélange des vecteurs de différents types
+#exemple de coercicion quand on mélange des objets de différents types
 
 x <- 1
 y <- "2"
@@ -240,3 +240,20 @@ pmin(maths, anglais, sport)
 
 
 pmax(maths, anglais, sport)
+
+###########################Les autres objets complexes#####################"
+
+# les tibbles
+#install.packages("tibble")
+library(tibble)
+exemple_tibble <- tibble(maths,anglais,sport)
+
+
+exemple_tribble <-tribble(~anglais, ~maths,~ sport,
+                          10,12,14,
+                          8, 16, 13 )
+
+exemple_matrice <- matrix(c(maths,anglais,sport), nrow = 6, ncol = 3)
+
+exemple_liste <- list(anglais, c(1:100),chien)
+tibble(anglais, c(1:100),chien)
